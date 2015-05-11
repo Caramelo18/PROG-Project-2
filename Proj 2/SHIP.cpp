@@ -1,7 +1,5 @@
 #include "SHIP.h"
 #include <string>
-#include "POSITIONCHAR.h"
-#include "POSITIONINT.h"
 #include <cstdlib>
 #include <iostream>
 
@@ -21,7 +19,7 @@ bool Ship::move(char direction, bool rotate, unsigned int lineMin, unsigned int 
 {
 	bool valid = true;
 
-	if (rotate)
+	if (rotate) 
 	{
 		if (orientation == 'H')
 			orientation = 'V';
@@ -31,7 +29,7 @@ bool Ship::move(char direction, bool rotate, unsigned int lineMin, unsigned int 
 	}
 
 
-	if (orientation == 'H')
+	if (orientation == 'H')  // verifica se a nova posicao do navio esta contida no tabuleiro e movimenta, caso contrário devolve falso
 	{
 
 		if (direction == 'N')
@@ -115,7 +113,7 @@ bool Ship::move(char direction, bool rotate, unsigned int lineMin, unsigned int 
 
 bool Ship::moveRand(unsigned int lineMin, unsigned int columnMin, unsigned int lineMax, unsigned int columnMax) // moves the ship randomly
 {
-	int i = rand() % 2;
+	int i = rand() % 2;  // tem 50% de rodar
 	bool rotate;
 
 	if (i == 0)
@@ -153,7 +151,7 @@ bool Ship::moveRand(unsigned int lineMin, unsigned int columnMin, unsigned int l
 
 bool Ship::attack(size_t partNumber) //partNumber = {0,1,…, size-1}
 {
-	if (partNumber < size)
+	if (partNumber < size && isupper(status[partNumber])) // verifica se a posicao nao foi ja atacada
 	{
 		status[partNumber] = tolower(symbol);
 		return true;

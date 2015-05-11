@@ -14,7 +14,7 @@ Bomb::Bomb(PositionChar targetPosition)
 void Bomb::bomb_deviation()
 {
 	int i;
-	i = rand() % 10;
+	i = rand() % 10; // gera um numero entre 0 e 9 para ter uma probabilidade de 40% de alterar a trajectória
 
 	if (i == 0)
 		targetLine = targetLine - 1;

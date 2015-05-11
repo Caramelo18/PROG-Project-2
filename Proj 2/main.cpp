@@ -7,14 +7,16 @@
 #include <windows.h>
 #include <sstream>
 #include <stdlib.h>
-#include "BOMB.h"
+//#include "BOMB.h"
 //#include "Player.h"
 
 using namespace std;
 
 int main()
 {
-	/*string name1, name2;
+	srand(time(NULL));
+	/*
+	string name1, name2;
 	string fich1, fich2;
 
 	cout << "Jogador 1 introduza o nome: ";
@@ -28,8 +30,6 @@ int main()
 	cout << name2 << " introduza o nome do ficheiro a utilizar: ";
 	cin >> fich2;
 	cin.ignore(1000, '\n');
-
-*/
-
+	*/
 	return 0;
 }

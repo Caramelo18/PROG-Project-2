@@ -32,7 +32,6 @@ Board::Board(const string &filename) // loads board from file 'filename'
 
 		ships.push_back(Ship(symbol, position, orientation, size, color));
 	}
-
 	fich.close();
 }
 
