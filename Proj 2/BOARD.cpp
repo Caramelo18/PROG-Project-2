@@ -32,6 +32,8 @@ Board::Board(const string &filename) // loads board from file 'filename'
 
 		ships.push_back(Ship(symbol, position, orientation, size, color));
 	}
+
+	fich.close();
 }
 
 bool Board::putShip(const Ship &s) // adds ship to the board, if possible
