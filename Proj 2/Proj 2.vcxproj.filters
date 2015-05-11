@@ -15,45 +15,45 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\..\..\..\..\..\Desktop\ConsoleApplication4\ConsoleApplication4\BOARD.h">
+    <ClInclude Include="BOARD.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\..\..\..\Desktop\ConsoleApplication4\ConsoleApplication4\BOMB.h">
+    <ClInclude Include="BOMB.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\..\..\..\Desktop\ConsoleApplication4\ConsoleApplication4\PLAYER.h">
+    <ClInclude Include="PLAYER.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\..\..\..\Desktop\ConsoleApplication4\ConsoleApplication4\POSITIONCHAR.h">
+    <ClInclude Include="POSITIONCHAR.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\..\..\..\Desktop\ConsoleApplication4\ConsoleApplication4\POSITIONINT.h">
+    <ClInclude Include="POSITIONINT.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\..\..\..\Desktop\ConsoleApplication4\ConsoleApplication4\SHIP.h">
+    <ClInclude Include="SHIP.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\..\..\..\..\..\Desktop\ConsoleApplication4\ConsoleApplication4\BOARD.cpp">
+    <ClCompile Include="BOARD.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Desktop\ConsoleApplication4\ConsoleApplication4\BOMB.cpp">
+    <ClCompile Include="BOMB.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Desktop\ConsoleApplication4\ConsoleApplication4\main.cpp">
+    <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Desktop\ConsoleApplication4\ConsoleApplication4\PLAYER.cpp">
+    <ClCompile Include="PLAYER.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Desktop\ConsoleApplication4\ConsoleApplication4\POSITIONCHAR.cpp">
+    <ClCompile Include="POSITIONCHAR.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Desktop\ConsoleApplication4\ConsoleApplication4\POSITIONINT.cpp">
+    <ClCompile Include="POSITIONINT.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Desktop\ConsoleApplication4\ConsoleApplication4\SHIP.cpp">
+    <ClCompile Include="SHIP.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
