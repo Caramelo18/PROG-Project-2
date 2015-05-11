@@ -76,6 +76,21 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\..\..\..\..\..\Desktop\ConsoleApplication4\ConsoleApplication4\BOARD.h" />
+    <ClInclude Include="..\..\..\..\..\..\..\Desktop\ConsoleApplication4\ConsoleApplication4\BOMB.h" />
+    <ClInclude Include="..\..\..\..\..\..\..\Desktop\ConsoleApplication4\ConsoleApplication4\PLAYER.h" />
+    <ClInclude Include="..\..\..\..\..\..\..\Desktop\ConsoleApplication4\ConsoleApplication4\POSITIONCHAR.h" />
+    <ClInclude Include="..\..\..\..\..\..\..\Desktop\ConsoleApplication4\ConsoleApplication4\POSITIONINT.h" />
+    <ClInclude Include="..\..\..\..\..\..\..\Desktop\ConsoleApplication4\ConsoleApplication4\SHIP.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\..\..\..\..\..\Desktop\ConsoleApplication4\ConsoleApplication4\BOARD.cpp" />
+    <ClCompile Include="..\..\..\..\..\..\..\Desktop\ConsoleApplication4\ConsoleApplication4\BOMB.cpp" />
+    <ClCompile Include="..\..\..\..\..\..\..\Desktop\ConsoleApplication4\ConsoleApplication4\main.cpp" />
+    <ClCompile Include="..\..\..\..\..\..\..\Desktop\ConsoleApplication4\ConsoleApplication4\PLAYER.cpp" />
+    <ClCompile Include="..\..\..\..\..\..\..\Desktop\ConsoleApplication4\ConsoleApplication4\POSITIONCHAR.cpp" />
+    <ClCompile Include="..\..\..\..\..\..\..\Desktop\ConsoleApplication4\ConsoleApplication4\POSITIONINT.cpp" />
+    <ClCompile Include="..\..\..\..\..\..\..\Desktop\ConsoleApplication4\ConsoleApplication4\SHIP.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
