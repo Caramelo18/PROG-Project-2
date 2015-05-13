@@ -57,4 +57,12 @@
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
+  <ItemGroup>
+    <Text Include="p1.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+    <Text Include="p2.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+  </ItemGroup>
 </Project>
