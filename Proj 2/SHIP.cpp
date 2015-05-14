@@ -163,7 +163,7 @@ bool Ship::attack(size_t partNumber) //partNumber = {0,1,…, size-1}
 bool Ship::isDestroyed() const // checks whether the ship is destroyed
 {
 	int counter;
-	for (int i = 0; i < size; i++)
+	for (unsigned int i = 0; i < size; i++)
 	{
 		if (status[i] == islower(symbol))
 			counter++;
@@ -176,7 +176,33 @@ bool Ship::isDestroyed() const // checks whether the ship is destroyed
 
 	return false;
 }
+
 void Ship::show() const // shows the attributes of the ship (for debugging)
 {
 	std::cout << "Ship attributes:" << endl << "Symbol: " << symbol << endl << "Line position: " << position.lin << endl << "Column position: " << position.col << endl << "Orientation: " << orientation << endl << "Size: " << size << endl << "Color: " << color << endl << "Status: " << status << endl;
+}
+
+char Ship::getSymbol() const
+{
+	return symbol;
+}
+
+int Ship::getSize() const
+{
+	return size;
+}
+
+PositionInt Ship::getPosition() const
+{
+	return position;
+}
+
+char Ship::getOrientation() const
+{
+	return orientation;
+}
+
+int Ship::getColor() const
+{
+	return color;
 }

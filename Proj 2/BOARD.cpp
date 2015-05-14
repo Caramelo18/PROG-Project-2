@@ -5,6 +5,18 @@
 #include <vector>
 #include <fstream>
 #include <sstream>
+#include <iostream>
+#include <iomanip>
+
+
+void setcolor(unsigned int color, unsigned int background_color)
+{
+	HANDLE hCon = GetStdHandle(STD_OUTPUT_HANDLE);
+	if (background_color == 0)
+		SetConsoleTextAttribute(hCon, color);
+	else
+		SetConsoleTextAttribute(hCon, color | BACKGROUND_BLUE | BACKGROUND_GREEN | BACKGROUND_RED);
+}
 
 Board::Board()
 {
@@ -19,7 +31,6 @@ Board::Board(const string &filename) // loads board from file 'filename'
 
 	ifstream fich(filename);
 	
-
 	fich >> numLines >> temp >> numColumns;
 
 	while (!fich.eof())
@@ -33,11 +44,34 @@ Board::Board(const string &filename) // loads board from file 'filename'
 		ships.push_back(Ship(symbol, position, orientation, size, color));
 	}
 	fich.close();
+	
+	for (int i = 0; i < numLines; i++)
+	{
+		vector<int> temp (numColumns, -1);
+		board.push_back(temp);
+	}
+	
 }
 
-bool Board::putShip(const Ship &s) // adds ship to the board, if possible
+bool Board::putShip(const Ship &s, unsigned int num) // adds ship to the board, if possible
 {
-	
+	int linha = s.getPosition().lin;
+	int coluna = s.getPosition().col;
+	if (s.getOrientation() == 'H') // orientacao horizontal
+	{
+		for (int j = 0; j < s.getSize(); j++) // preencher o numero de posicoes correspondentes ao tamanho do navio
+		{
+			board[linha][coluna + j] = num;
+		}
+	}
+	else                           // orientacao vertical
+	{
+		for (int j = 0; j < s.getSize(); j++) // preencher o numero de posicoes correspondentes ao tamanho do navio
+		{
+			board[linha + j][coluna] = num;
+		}
+	}
+	return true;
 }
 
 void Board::moveShips() // tries to randmonly move all the ships of the fleet
@@ -52,10 +86,41 @@ bool Board::attack(const Bomb &b)
 
 void Board::display() const // displays the colored board during the game
 {
-
+	for (int i = 0; i < numLines; i++)
+	{
+		for (int k = 0; k < numColumns; k++)
+		{
+			if (board[i][k] == -1)
+			{
+				setcolor(9, 15);
+				std::cout << setw(3) << ".";
+			}
+			else
+			{
+				setcolor(ships[board[i][k]].getColor(), 15);
+				std::cout << setw(3) << ships[board[i][k]].getSymbol();
+			}
+		}
+		std::cout << endl;
+	}
+	setcolor(7, 0);
 }
 
 void Board::show() const// shows the attributes of the board (for debugging)
 {
+	for (int i = 0; i < numLines; i++)
+	{
+		for (int k = 0; k < numColumns; k++)
+		{
+			std::cout << setw(3) << board[i][k];
+		}
+		std::cout << endl;
+	}
 
 }
+
+vector<Ship> Board::navios() const
+{
+	return ships;
+}
+
