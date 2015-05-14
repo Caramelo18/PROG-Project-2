@@ -11,13 +11,13 @@ public:
 	Board();
 	Board(const string &filename); // loads board from file 'filename'
 	bool putShip(const Ship &s, unsigned int num); // adds ship to the board, if possible
+	void putShips();
 	void moveShips(); // tries to randmonly move all the ships of the fleet
 	bool attack(const Bomb &b);
 	void display() const; // displays the colored board during the game
 	void show() const; // shows the attributes of the board (for debugging)
 	// OTHER METHODS, if necessary
 	// ...
-	vector<Ship> navios() const;
 	
 private:
 	int numLines, numColumns; // redundant info …

@@ -74,6 +74,12 @@ bool Board::putShip(const Ship &s, unsigned int num) // adds ship to the board, 
 	return true;
 }
 
+void Board::putShips() 
+{
+	for (int i = 0; i < ships.size(); i++)
+		putShip(ships[i], i);
+}
+
 void Board::moveShips() // tries to randmonly move all the ships of the fleet
 {
 
@@ -86,19 +92,33 @@ bool Board::attack(const Bomb &b)
 
 void Board::display() const // displays the colored board during the game
 {
+	for (int i = 'a'; i < 'a' + numColumns; i++) // Identificação das colunas
+	{
+		setcolor(7, 0);
+		if (i == 'a')
+			cout << "  " << (char)i;
+		else cout << fixed << setw(2) << (char)i;
+	}
+	cout << endl;
+
 	for (int i = 0; i < numLines; i++)
 	{
-		for (int k = 0; k < numColumns; k++)
+		for (int k = -1; k < numColumns; k++)
 		{
-			if (board[i][k] == -1)
+			if (k == -1)
+			{
+				setcolor(7, 0);
+				cout << (char)('A' + i); // Identificação das linhas
+			}
+			else if (board[i][k] == -1)
 			{
 				setcolor(9, 15);
-				std::cout << setw(3) << ".";
+				std::cout << setw(2) << ".";
 			}
 			else
 			{
 				setcolor(ships[board[i][k]].getColor(), 15);
-				std::cout << setw(3) << ships[board[i][k]].getSymbol();
+				std::cout << setw(2) << ships[board[i][k]].getSymbol();
 			}
 		}
 		std::cout << endl;
@@ -119,8 +139,4 @@ void Board::show() const// shows the attributes of the board (for debugging)
 
 }
 
-vector<Ship> Board::navios() const
-{
-	return ships;
-}
 

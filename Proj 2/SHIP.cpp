@@ -107,7 +107,6 @@ bool Ship::move(char direction, bool rotate, unsigned int lineMin, unsigned int 
 				position.col = position.col + 1;
 		}
 	}
-
 	return valid;
 }
 
@@ -121,7 +120,6 @@ bool Ship::moveRand(unsigned int lineMin, unsigned int columnMin, unsigned int l
 
 	else if (i == 1)
 		rotate = false;
-
 
 	int j = rand() % 5;
 	char direction;
@@ -141,8 +139,8 @@ bool Ship::moveRand(unsigned int lineMin, unsigned int columnMin, unsigned int l
 			direction = 'E';
 
 		Ship::move(direction, rotate, lineMin, columnMin, lineMax, columnMax);
-
 		return true;
+
 	}
 
 	else if (j == 4)

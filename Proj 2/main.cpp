@@ -15,7 +15,7 @@ using namespace std;
 
 int main()
 {
-	srand(time(NULL));
+	srand((unsigned)time(NULL));
 	/*
 	string name1, name2;
 	string fich1, fich2;
@@ -32,14 +32,12 @@ int main()
 	cin >> fich2;
 	cin.ignore(1000, '\n');
 	*/
-	Board b("p1.txt");
+	Board b("p2.txt");
 	
 	b.show();
 	cout << endl;
-	
-
-	for (int i = 0; i < 10; i++)
-		b.putShip(b.navios()[i], i);
+	b.putShips();
+	b.show();
 
 	b.display();
 
