@@ -1,4 +1,5 @@
 #include "SHIP.h"
+#include "BOARD.h"
 #include <string>
 #include <cstdlib>
 #include <iostream>

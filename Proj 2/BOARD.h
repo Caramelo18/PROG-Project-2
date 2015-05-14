@@ -18,6 +18,7 @@ public:
 	void show() const; // shows the attributes of the board (for debugging)
 	// OTHER METHODS, if necessary
 	// ...
+	bool checkPosition(int line, int column, unsigned int size, char orientation, char direction) const;
 	
 private:
 	int numLines, numColumns; // redundant info …

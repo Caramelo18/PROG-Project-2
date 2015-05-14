@@ -82,7 +82,10 @@ void Board::putShips()
 
 void Board::moveShips() // tries to randmonly move all the ships of the fleet
 {
-
+	for (int i = 0; i < ships.size(); i++)
+	{
+		if (checkPosition(ships[i].getPosition().lin, ships[i].getPosition().col, ships[i].getSize(), ships[i].getOrientation, ))
+	}
 }
 
 bool Board::attack(const Bomb &b)
@@ -135,6 +138,84 @@ void Board::show() const// shows the attributes of the board (for debugging)
 			std::cout << setw(3) << board[i][k];
 		}
 		std::cout << endl;
+	}
+
+}
+
+bool Board::checkPosition(int line, int column, unsigned int size, char orientation, char direction) const
+{
+	bool free = true;
+	if (direction == 'N')
+	{
+		for (int i = 0; i < size; i++)
+		{
+			{
+				if (orientation == 'H')
+				{
+					if (board[line - 1][column + i] != -1)
+						free = false;
+				}
+				else if (orientation == 'V')
+				{
+					if (board[line - 1 + i][column] != -1)
+						free = false;
+				}
+			}
+		}
+	}
+	else if (direction == 'S')
+	{
+		for (int i = 0; i < size; i++)
+		{
+			{
+				if (orientation == 'H')
+				{
+					if (board[line + 1][column + i] != -1)
+						free = false;
+				}
+				else if (orientation == 'V')
+				{
+					if (board[line + 1 + i][column] != -1)
+						free = false;
+				}
+			}
+		}
+	}
+	else if (direction == 'E')
+	{
+		for (int i = 0; i < size; i++)
+		{
+			{
+				if (orientation == 'H')
+				{
+					if (board[line][column + 1 + i] != -1)
+						free = false;
+				}
+				else if (orientation == 'V')
+				{
+					if (board[line + i][column + 1] != -1)
+						free = false;
+				}
+			}
+		}
+	}
+	else if (direction == 'W')
+	{
+		for (int i = 0; i < size; i++)
+		{
+			{
+				if (orientation == 'H')
+				{
+					if (board[line][column - 1 + i] != -1)
+						free = false;
+				}
+				else if (orientation == 'V')
+				{
+					if (board[line + i][column -1] != -1)
+						free = false;
+				}
+			}
+		}
 	}
 
 }
