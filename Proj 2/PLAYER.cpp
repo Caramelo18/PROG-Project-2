@@ -30,7 +30,7 @@ Bomb Player::getBomb() const // asks bomb target coordinates and creates the bom
 		char_coordenates.col = coordenates[1];
 	}
 
-	Bomb::Bomb(char_coordenates);
+	return Bomb::Bomb(char_coordenates);
 }
 
 void Player::attackBoard(const Bomb &b) // "receives" a bomb from the opponent;

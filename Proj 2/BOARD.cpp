@@ -57,21 +57,47 @@ bool Board::putShip(const Ship &s, unsigned int num) // adds ship to the board, 
 {
 	int linha = s.getPosition().lin;
 	int coluna = s.getPosition().col;
+	bool free = true;
 	if (s.getOrientation() == 'H') // orientacao horizontal
 	{
 		for (int j = 0; j < s.getSize(); j++) // preencher o numero de posicoes correspondentes ao tamanho do navio
 		{
-			board[linha][coluna + j] = num;
+			if (board[linha][coluna + j] != -1 && board[linha][coluna + j] != num)
+			{
+				free = false;
+				break;
+			}
 		}
 	}
 	else                           // orientacao vertical
 	{
 		for (int j = 0; j < s.getSize(); j++) // preencher o numero de posicoes correspondentes ao tamanho do navio
 		{
-			board[linha + j][coluna] = num;
+			if (board[linha + j][coluna] != -1 && board[linha][coluna + j] != num)
+			{
+				free = false;
+				break;
+			}
 		}
 	}
-	return true;
+	if (free)
+	{
+		if (s.getOrientation() == 'H') // orientacao horizontal
+		{
+			for (int j = 0; j < s.getSize(); j++) // preencher o numero de posicoes correspondentes ao tamanho do navio
+			{
+				board[linha][coluna + j] = num;
+			}
+		}
+		else                           // orientacao vertical
+		{
+			for (int j = 0; j < s.getSize(); j++) // preencher o numero de posicoes correspondentes ao tamanho do navio
+			{
+				board[linha + j][coluna] = num;
+			}
+		}
+	}
+	return free;
 }
 
 void Board::putShips() 
@@ -82,10 +108,8 @@ void Board::putShips()
 
 void Board::moveShips() // tries to randmonly move all the ships of the fleet
 {
-	for (int i = 0; i < ships.size(); i++)
-	{
-		if (checkPosition(ships[i].getPosition().lin, ships[i].getPosition().col, ships[i].getSize(), ships[i].getOrientation, ))
-	}
+	ships[0].moveRand(0, 0, numLines, numColumns);
+	putShip(ships[0], 0);
 }
 
 bool Board::attack(const Bomb &b)
@@ -141,83 +165,3 @@ void Board::show() const// shows the attributes of the board (for debugging)
 	}
 
 }
-
-bool Board::checkPosition(int line, int column, unsigned int size, char orientation, char direction) const
-{
-	bool free = true;
-	if (direction == 'N')
-	{
-		for (int i = 0; i < size; i++)
-		{
-			{
-				if (orientation == 'H')
-				{
-					if (board[line - 1][column + i] != -1)
-						free = false;
-				}
-				else if (orientation == 'V')
-				{
-					if (board[line - 1 + i][column] != -1)
-						free = false;
-				}
-			}
-		}
-	}
-	else if (direction == 'S')
-	{
-		for (int i = 0; i < size; i++)
-		{
-			{
-				if (orientation == 'H')
-				{
-					if (board[line + 1][column + i] != -1)
-						free = false;
-				}
-				else if (orientation == 'V')
-				{
-					if (board[line + 1 + i][column] != -1)
-						free = false;
-				}
-			}
-		}
-	}
-	else if (direction == 'E')
-	{
-		for (int i = 0; i < size; i++)
-		{
-			{
-				if (orientation == 'H')
-				{
-					if (board[line][column + 1 + i] != -1)
-						free = false;
-				}
-				else if (orientation == 'V')
-				{
-					if (board[line + i][column + 1] != -1)
-						free = false;
-				}
-			}
-		}
-	}
-	else if (direction == 'W')
-	{
-		for (int i = 0; i < size; i++)
-		{
-			{
-				if (orientation == 'H')
-				{
-					if (board[line][column - 1 + i] != -1)
-						free = false;
-				}
-				else if (orientation == 'V')
-				{
-					if (board[line + i][column -1] != -1)
-						free = false;
-				}
-			}
-		}
-	}
-
-}
-
-
