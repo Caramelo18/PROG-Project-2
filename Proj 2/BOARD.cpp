@@ -108,8 +108,11 @@ void Board::putShips()
 
 void Board::moveShips() // tries to randmonly move all the ships of the fleet
 {
-	ships[0].moveRand(0, 0, numLines, numColumns);
-	putShip(ships[0], 0);
+	for (int i = 0; i < ships.size(); i++)
+	{
+		ships[i].moveRand(0, 0, numLines, numColumns);
+		putShip(ships[i], i);
+	}
 }
 
 bool Board::attack(const Bomb &b)
