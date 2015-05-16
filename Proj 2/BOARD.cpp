@@ -168,9 +168,9 @@ bool Board::attack(const Bomb &b)
 	else if (hit)
 	{
 		if (ships[board[coordenates.lin][coordenates.col]].getOrientation() == 'H')
-			partNumber = coordenates.col - ships[board[coordenates.lin][coordenates.col]].getposition().col;
+			partNumber = coordenates.col - ships[board[coordenates.lin][coordenates.col]].getPosition().col;
 		else if (ships[board[coordenates.lin][coordenates.col]].getOrientation() == 'V')
-			partNumber = coordenates.lin - ships[board[coordenates.lin][coordenates.col]].getposition().lin;
+			partNumber = coordenates.lin - ships[board[coordenates.lin][coordenates.col]].getPosition().lin;
 
 		ships[board[coordenates.lin][coordenates.col]].attack(partNumber);
 	}
