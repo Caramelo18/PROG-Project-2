@@ -23,6 +23,7 @@ public:
 	PositionInt getPosition() const;
 	char getOrientation() const;
 	int getColor() const;
+	string getStatus() const;
 	
 private:
 	char symbol; // 'P' = "porta-aviões"; 'F' = "fragata"; … (portuguese names)

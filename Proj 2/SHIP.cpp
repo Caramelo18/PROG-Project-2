@@ -205,3 +205,8 @@ int Ship::getColor() const
 {
 	return color;
 }
+
+string Ship::getStatus() const
+{
+	return status;
+}

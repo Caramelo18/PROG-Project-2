@@ -55,14 +55,14 @@ Board::Board(const string &filename) // loads board from file 'filename'
 
 bool Board::putShip(const Ship &s, unsigned int num) // adds ship to the board, if possible
 {
-	int linha = s.getPosition().lin;
-	int coluna = s.getPosition().col;
+	int line = s.getPosition().lin;
+	int column = s.getPosition().col;
 	bool free = true;
 	if (s.getOrientation() == 'H') // orientacao horizontal
 	{
 		for (int j = 0; j < s.getSize(); j++) // preencher o numero de posicoes correspondentes ao tamanho do navio
 		{
-			if (board[linha][coluna + j] != -1 && board[linha][coluna + j] != num)
+			if (board[line][column + j] != -1 && board[line][column + j] != num)
 			{
 				free = false;
 				break;
@@ -73,27 +73,27 @@ bool Board::putShip(const Ship &s, unsigned int num) // adds ship to the board, 
 	{
 		for (int j = 0; j < s.getSize(); j++) // preencher o numero de posicoes correspondentes ao tamanho do navio
 		{
-			if (board[linha + j][coluna] != -1 && board[linha][coluna + j] != num)
+			if (board[line + j][column] != -1 && board[line][column + j] != num)
 			{
 				free = false;
 				break;
 			}
 		}
-	}
+	} 
 	if (free)
 	{
 		if (s.getOrientation() == 'H') // orientacao horizontal
 		{
 			for (int j = 0; j < s.getSize(); j++) // preencher o numero de posicoes correspondentes ao tamanho do navio
 			{
-				board[linha][coluna + j] = num;
+				board[line][column + j] = num;
 			}
 		}
 		else                           // orientacao vertical
 		{
 			for (int j = 0; j < s.getSize(); j++) // preencher o numero de posicoes correspondentes ao tamanho do navio
 			{
-				board[linha + j][coluna] = num;
+				board[line + j][column] = num;
 			}
 		}
 	}
@@ -110,14 +110,72 @@ void Board::moveShips() // tries to randmonly move all the ships of the fleet
 {
 	for (int i = 0; i < ships.size(); i++)
 	{
-		ships[i].moveRand(0, 0, numLines, numColumns);
-		putShip(ships[i], i);
+		Ship temp = ships[i];
+		bool move = ships[i].moveRand(0, 0, numLines, numColumns);
+		if (move || ships[i].getOrientation() != temp.getOrientation())
+		{
+			deleteShip(temp, i);
+			while (1)
+			{
+				if (putShip(ships[i], i))
+					break;
+				else
+				{
+					ships[i] = temp;
+					ships[i].moveRand(0, 0, numLines, numColumns);
+				}
+			}
+		}
+		else
+		{
+			ships[i] = temp;
+		}
+
+	}
+}
+
+void Board::deleteShip(const Ship &s, unsigned int num)
+{
+	int line = s.getPosition().lin;
+	int column = s.getPosition().col;
+	if (s.getOrientation() == 'H') // orientacao horizontal
+		{
+			for (int j = 0; j < s.getSize(); j++) // preencher o numero de posicoes correspondentes ao tamanho do navio
+			{
+				board[line][column + j] = -1;
+			}
+		}
+	else                           // orientacao vertical
+	{
+		for (int j = 0; j < s.getSize(); j++) // preencher o numero de posicoes correspondentes ao tamanho do navio
+		{
+			board[line + j][column] = -1;
+		}
 	}
 }
 
 bool Board::attack(const Bomb &b)
 {
-	return true;
+	bool hit = true;
+	PositionInt coordenates;
+	int partNumber;
+	coordenates.lin = (int)(b.getTargetPosition().lin - 'A');
+	coordenates.col = (int)(b.getTargetPosition().col - 'a');
+
+	if (board[coordenates.lin][coordenates.col] != -1)
+		hit = false;
+
+	else if (hit)
+	{
+		if (ships[board[coordenates.lin][coordenates.col]].getOrientation() == 'H')
+			partNumber = coordenates.col - ships[board[coordenates.lin][coordenates.col]].getposition().col;
+		else if (ships[board[coordenates.lin][coordenates.col]].getOrientation() == 'V')
+			partNumber = coordenates.lin - ships[board[coordenates.lin][coordenates.col]].getposition().lin;
+
+		ships[board[coordenates.lin][coordenates.col]].attack(partNumber);
+	}
+
+	return hit;
 }
 
 void Board::display() const // displays the colored board during the game
@@ -148,7 +206,10 @@ void Board::display() const // displays the colored board during the game
 			else
 			{
 				setcolor(ships[board[i][k]].getColor(), 15);
-				std::cout << setw(2) << ships[board[i][k]].getSymbol();
+				if (ships[board[i][k]].getOrientation() == 'H')
+					std::cout << setw(2) << ships[board[i][k]].getStatus()[k - ships[board[i][k]].getPosition().col]; // <- aterar [0]
+				else if (ships[board[i][k]].getOrientation() == 'V')
+					std::cout << setw(2) << ships[board[i][k]].getStatus()[i - ships[board[i][k]].getPosition().lin]; // <- aterar [0]
 			}
 		}
 		std::cout << endl;
@@ -167,4 +228,9 @@ void Board::show() const// shows the attributes of the board (for debugging)
 		std::cout << endl;
 	}
 
+}
+
+vector<Ship> Board::navios() const
+{
+	return ships;
 }
