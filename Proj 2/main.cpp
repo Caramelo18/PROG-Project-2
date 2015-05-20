@@ -55,7 +55,10 @@ int main()
 	
 	while (!b1.areDestroyed() || !b2.areDestroyed())
 	{
-		cout << "Bruno e gay \n";
+		if (b1.areDestroyed())
+			cout << name2 << "is the winner. Congratulations!" << endl;
+		else if (b2.areDestroyed())
+			cout << name1 << "is the winner. Congratulations!" << endl;
 	}
 
 	return 0;
