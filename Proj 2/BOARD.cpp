@@ -102,13 +102,13 @@ bool Board::putShip(const Ship &s, unsigned int num) // adds ship to the board, 
 
 void Board::putShips() 
 {
-	for (int i = 0; i < ships.size(); i++)
+	for (unsigned int i = 0; i < ships.size(); i++)
 		putShip(ships[i], i);
 }
 
 void Board::moveShips() // tries to randmonly move all the ships of the fleet
 {
-	for (int i = 0; i < ships.size(); i++)
+	for (unsigned int i = 0; i < ships.size(); i++)
 	{
 		Ship temp = ships[i];
 		bool move = ships[i].moveRand(0, 0, numLines, numColumns);
@@ -230,7 +230,18 @@ void Board::show() const// shows the attributes of the board (for debugging)
 
 }
 
-vector<Ship> Board::navios() const
+vector<Ship> Board::getShips() const
 {
 	return ships;
+}
+
+bool Board::areDestroyed() const
+{
+	bool destroyed = true;
+	for (unsigned int i = 0; i < ships.size(); i++)
+	{
+		if (ships[i].isDestroyed() == false)
+			destroyed = false;
+	}
+	return destroyed;
 }

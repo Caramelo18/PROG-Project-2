@@ -20,7 +20,8 @@ public:
 	// ...
 	bool checkPosition(int line, int column, unsigned int size, char orientation, char direction) const;
 	void deleteShip(const Ship &s, unsigned int  num);
-	vector<Ship> navios() const;
+	vector<Ship> getShips() const;
+	bool areDestroyed() const;
 	
 private:
 	int numLines, numColumns; // redundant info …
