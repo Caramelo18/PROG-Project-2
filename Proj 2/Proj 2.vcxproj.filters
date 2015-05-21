@@ -24,13 +24,10 @@
     <ClInclude Include="PLAYER.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="POSITIONCHAR.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="POSITIONINT.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="SHIP.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="POSITION.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -45,12 +42,6 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="PLAYER.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="POSITIONCHAR.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="POSITIONINT.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="SHIP.cpp">

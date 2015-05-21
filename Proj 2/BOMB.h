@@ -1,13 +1,13 @@
 #ifndef _BOMB
 #define _BOMB
-#include "POSITIONCHAR.h"
+#include "POSITION.h"
 #include <vector>
 
 class Bomb
 {
 public:
-	Bomb(PositionChar targetPosition);
-	PositionChar getTargetPosition() const;
+	Bomb(Position<char> targetPosition);
+	Position<char> getTargetPosition() const;
 	void bomb_deviation();
 	// OTHER METHODS, if necessary
 	// ...

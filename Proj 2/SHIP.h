@@ -1,7 +1,6 @@
 #ifndef _SHIP
 #define _SHIP
-#include "POSITIONCHAR.h"
-#include "POSITIONINT.h"
+#include "POSITION.h"
 #include <string>
 #include <Windows.h>
 
@@ -10,7 +9,7 @@ using namespace std;
 class Ship
 {
 public:
-	Ship(char symbol, PositionChar position, char orientation, unsigned int size, unsigned int color);
+	Ship(char symbol, Position<char> position, char orientation, unsigned int size, unsigned int color);
 	// OTHER METHODS, if necessary
 	// ...
 	bool move(char direction, bool rotate, unsigned int lineMin, unsigned int columnMin, unsigned int lineMax, unsigned int columnMax); // moves the boat (SEE NOTES)
@@ -20,14 +19,14 @@ public:
 	void show() const; // shows the attributes of the ship (for debugging)
 	char getSymbol() const;
 	int getSize() const;
-	PositionInt getPosition() const;
+	Position<unsigned int> getPosition() const;
 	char getOrientation() const;
 	int getColor() const;
 	string getStatus() const;
 	
 private:
 	char symbol; // 'P' = "porta-aviões"; 'F' = "fragata"; … (portuguese names)
-	PositionInt position; // coordinates of the upper left corner of the ship
+	Position<unsigned int> position; // coordinates of the upper left corner of the ship
 	char orientation; // 'H' = horizontal; 'V' = vertical
 	unsigned int size; // number os cells occupied by the ship, on the board
 	unsigned int color; // color code: o=BLACK, 1=BLUE, … (see annex of 1st proj.)

@@ -36,7 +36,7 @@ Board::Board(const string &filename) // loads board from file 'filename'
 	while (!fich.eof())
 	{
 		char symbol, orientation;
-		PositionChar position;  
+		Position<char> position;  
 		unsigned int size, color; 
 		
 		fich >> symbol >> size >> position.lin >> position.col >> orientation >> color;
@@ -157,7 +157,7 @@ void Board::deleteShip(const Ship &s)
 bool Board::attack(const Bomb &b)
 {
 	bool hit = true;
-	PositionInt coordenates;
+	Position<unsigned int> coordenates;
 	int partNumber;
 	coordenates.lin = (int)(b.getTargetPosition().lin - 'A');
 	coordenates.col = (int)(b.getTargetPosition().col - 'a');

@@ -17,7 +17,7 @@ void Player::showBoard() const // shows the player’s board
 Bomb Player::getBomb() const // asks bomb target coordinates and creates the bomb
 {
 	string coordenates;
-	PositionChar char_coordenates;
+	Position<char> char_coordenates;
 
 	std::cout << "Introduce your bomb coordenates (lin, col): ";
 	std::cin >> coordenates;
@@ -39,7 +39,6 @@ void Player::attackBoard(const Bomb &b) // "receives" a bomb from the opponent;
 	board.attack(b);
 	
 }
-
 
 // updates own board taking into account the damages
 // caused by the bomb; BEFORE THAT… moves the ships

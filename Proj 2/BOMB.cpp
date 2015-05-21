@@ -1,9 +1,9 @@
-#include "POSITIONCHAR.h"
+#include "POSITION.h"
 #include "BOMB.h"
 #include <cstdlib>
 #include <iostream>
 
-Bomb::Bomb(PositionChar targetPosition)
+Bomb::Bomb(Position<char> targetPosition)
 {
 	targetLine = toupper(targetPosition.lin);
 	targetColumn = tolower(targetPosition.col);
@@ -29,9 +29,9 @@ void Bomb::bomb_deviation()
 		targetColumn = targetColumn + 1;
 }
 
-PositionChar Bomb::getTargetPosition() const
+Position<char> Bomb::getTargetPosition() const
 {
-	PositionChar bom_position;
+	Position<char> bom_position;
 
 	bom_position.lin = targetLine;
 	bom_position.col = targetColumn;

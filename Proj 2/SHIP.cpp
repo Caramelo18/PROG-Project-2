@@ -5,7 +5,7 @@
 #include <iostream>
 
 
-Ship::Ship(char symbol, PositionChar position, char orientation, unsigned int size, unsigned int color)
+Ship::Ship(char symbol, Position<char> position, char orientation, unsigned int size, unsigned int color)
 {
 	this->symbol = symbol;
 	this->position.col = (int)(position.col - 'a');
@@ -121,7 +121,7 @@ bool Ship::moveRand(unsigned int lineMin, unsigned int columnMin, unsigned int l
 
 	else if (i == 1)
 		rotate = false;
-
+	
 	int j = rand() % 5;
 	char direction;
 
@@ -141,10 +141,9 @@ bool Ship::moveRand(unsigned int lineMin, unsigned int columnMin, unsigned int l
 
 		Ship::move(direction, rotate, lineMin, columnMin, lineMax, columnMax);
 		return true;
-
 	}
 
-	else if (j == 4)
+	else 
 		return false;
 }
 
@@ -191,7 +190,7 @@ int Ship::getSize() const
 	return size;
 }
 
-PositionInt Ship::getPosition() const
+Position<unsigned int> Ship::getPosition() const
 {
 	return position;
 }

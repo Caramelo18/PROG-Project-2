@@ -64,9 +64,6 @@ int main()
 	*/
 	Player p1("Jorge", "p2.txt");
 	Player p2("Isidoro", "p1.txt");
-
-	Board b1 = p1.getBoard();
-	Board b2 = p2.getBoard();
 	
 	p1.getBoard().putShips();
 	p2.getBoard().putShips();

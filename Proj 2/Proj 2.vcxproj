@@ -14,8 +14,9 @@
     <ClInclude Include="BOARD.h" />
     <ClInclude Include="BOMB.h" />
     <ClInclude Include="PLAYER.h" />
-    <ClInclude Include="POSITIONCHAR.h" />
-    <ClInclude Include="POSITIONINT.h" />
+    <ClInclude Include="POSITION.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
+    </ClInclude>
     <ClInclude Include="SHIP.h" />
   </ItemGroup>
   <ItemGroup>
@@ -23,8 +24,6 @@
     <ClCompile Include="BOMB.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="PLAYER.cpp" />
-    <ClCompile Include="POSITIONCHAR.cpp" />
-    <ClCompile Include="POSITIONINT.cpp" />
     <ClCompile Include="SHIP.cpp" />
   </ItemGroup>
   <ItemGroup>
