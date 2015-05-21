@@ -35,7 +35,9 @@ Bomb Player::getBomb() const // asks bomb target coordinates and creates the bom
 
 void Player::attackBoard(const Bomb &b) // "receives" a bomb from the opponent;
 {
+	//board.moveShips();
 	board.attack(b);
+	
 }
 
 

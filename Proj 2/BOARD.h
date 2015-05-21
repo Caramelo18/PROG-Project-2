@@ -19,7 +19,7 @@ public:
 	// OTHER METHODS, if necessary
 	// ...
 	bool checkPosition(int line, int column, unsigned int size, char orientation, char direction) const;
-	void deleteShip(const Ship &s, unsigned int  num);
+	void deleteShip(const Ship &s);
 	vector<Ship> getShips() const;
 	bool areDestroyed() const;
 	

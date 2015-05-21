@@ -62,7 +62,7 @@ bool Board::putShip(const Ship &s, unsigned int num) // adds ship to the board, 
 	{
 		for (int j = 0; j < s.getSize(); j++) // preencher o numero de posicoes correspondentes ao tamanho do navio
 		{
-			if (board[line][column + j] != -1 && board[line][column + j] != num)
+			if (board[line][column + j] != -1 && board[line][column + j] != num || column + s.getSize() > numColumns || line < 0 || column < 0 || line > numLines)
 			{
 				free = false;
 				break;
@@ -73,9 +73,9 @@ bool Board::putShip(const Ship &s, unsigned int num) // adds ship to the board, 
 	{
 		for (int j = 0; j < s.getSize(); j++) // preencher o numero de posicoes correspondentes ao tamanho do navio
 		{
-			if (board[line + j][column] != -1 && board[line][column + j] != num)
+			if (board[line + j][column] != -1 && board[line][column + j] != num || line + s.getSize() > numLines || line < 0 || column < 0 || column > numColumns)
 			{
-				free = false;
+				free = false;	
 				break;
 			}
 		}
@@ -111,10 +111,10 @@ void Board::moveShips() // tries to randmonly move all the ships of the fleet
 	for (unsigned int i = 0; i < ships.size(); i++)
 	{
 		Ship temp = ships[i];
-		bool move = ships[i].moveRand(0, 0, numLines, numColumns);
+		bool move = ships[i].moveRand(0, 0, numLines - 1, numColumns- 1);
 		if (move || ships[i].getOrientation() != temp.getOrientation())
 		{
-			deleteShip(temp, i);
+			deleteShip(temp);
 			while (1)
 			{
 				if (putShip(ships[i], i))
@@ -122,7 +122,7 @@ void Board::moveShips() // tries to randmonly move all the ships of the fleet
 				else
 				{
 					ships[i] = temp;
-					ships[i].moveRand(0, 0, numLines, numColumns);
+					ships[i].moveRand(0, 0, numLines - 1, numColumns - 1);
 				}
 			}
 		}
@@ -134,7 +134,7 @@ void Board::moveShips() // tries to randmonly move all the ships of the fleet
 	}
 }
 
-void Board::deleteShip(const Ship &s, unsigned int num)
+void Board::deleteShip(const Ship &s)
 {
 	int line = s.getPosition().lin;
 	int column = s.getPosition().col;
@@ -162,10 +162,10 @@ bool Board::attack(const Bomb &b)
 	coordenates.lin = (int)(b.getTargetPosition().lin - 'A');
 	coordenates.col = (int)(b.getTargetPosition().col - 'a');
 
-	if (board[coordenates.lin][coordenates.col] != -1)
+	if (board[coordenates.lin][coordenates.col] == -1)
 		hit = false;
 
-	else if (hit)
+	if (hit)
 	{
 		if (ships[board[coordenates.lin][coordenates.col]].getOrientation() == 'H')
 			partNumber = coordenates.col - ships[board[coordenates.lin][coordenates.col]].getPosition().col;
@@ -173,6 +173,26 @@ bool Board::attack(const Bomb &b)
 			partNumber = coordenates.lin - ships[board[coordenates.lin][coordenates.col]].getPosition().lin;
 
 		ships[board[coordenates.lin][coordenates.col]].attack(partNumber);
+		setcolor(10, 0);
+		cout << "\nHit! \n";
+		if (ships[board[coordenates.lin][coordenates.col]].isDestroyed())
+		{
+			setcolor(7, 0);
+			cout << "Ship "; 
+			setcolor(ships[board[coordenates.lin][coordenates.col]].getColor(), 0);
+			cout << ships[board[coordenates.lin][coordenates.col]].getSymbol();
+			setcolor(7, 0);
+			cout << " has been destroyed!";
+			deleteShip(ships[board[coordenates.lin][coordenates.col]]);
+			
+		}
+	}
+	
+	else
+	{
+		setcolor(12, 0);
+		cout << "\nMiss! \n";
+		setcolor(15, 0);
 	}
 
 	return hit;

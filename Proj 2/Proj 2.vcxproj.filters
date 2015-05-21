@@ -64,5 +64,8 @@
     <Text Include="p2.txt">
       <Filter>Resource Files</Filter>
     </Text>
+    <Text Include="R.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
   </ItemGroup>
 </Project>

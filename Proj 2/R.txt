@@ -1,0 +1,8 @@
+10 x 10
+P 7 Cc V 12
+C 3 Cd H 10
+C 3 Fd H 10
+S 2 Df V 6
+L 1 Gd V 9
+L 1 He H 9
+L 1 If H 9

@@ -14,6 +14,31 @@
 
 using namespace std;
 
+void clrscr(void)
+{
+	COORD coordScreen = { 0, 0 }; // upper left corner
+	DWORD cCharsWritten;
+	DWORD dwConSize;
+	HANDLE hCon = GetStdHandle(STD_OUTPUT_HANDLE);
+	CONSOLE_SCREEN_BUFFER_INFO csbi;
+	GetConsoleScreenBufferInfo(hCon, &csbi);
+	dwConSize = csbi.dwSize.X * csbi.dwSize.Y;
+	// fill with spaces
+	FillConsoleOutputCharacter(hCon, TEXT(' '), dwConSize, coordScreen, &cCharsWritten);
+	GetConsoleScreenBufferInfo(hCon, &csbi);
+	FillConsoleOutputAttribute(hCon, csbi.wAttributes, dwConSize, coordScreen, &cCharsWritten);
+	// cursor to upper left corner
+	SetConsoleCursorPosition(hCon, coordScreen);
+}
+
+void gotoxy(int x, int y)
+{
+	COORD coord;
+	coord.X = x;
+	coord.Y = y;
+	SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
+}
+
 int main()
 {
 	srand((unsigned)time(NULL));
@@ -40,26 +65,51 @@ int main()
 	Player p1("Jorge", "p2.txt");
 	Player p2("Isidoro", "p1.txt");
 
-
 	Board b1 = p1.getBoard();
 	Board b2 = p2.getBoard();
 	
+	p1.getBoard().putShips();
+	p2.getBoard().putShips();
 	
-	p1.showBoard();
-	cout << endl;
-	b1.putShips();
-	b1.display();
-	b1.moveShips();
-	b1.display();
-	
-	
-	while (!b1.areDestroyed() || !b2.areDestroyed())
+	while (!p1.getBoard().areDestroyed() || !p2.getBoard().areDestroyed())
 	{
-		if (b1.areDestroyed())
+		if (p1.getBoard().areDestroyed())
+		{
 			cout << name2 << "is the winner. Congratulations!" << endl;
-		else if (b2.areDestroyed())
+			break;
+		}
+		else if (p1.getBoard().areDestroyed())
+		{
 			cout << name1 << "is the winner. Congratulations!" << endl;
-	}
+			break;
+		}
 
+		if (j % 2 == 0)
+		{
+			// p1 a atacar
+			cout << name1 << " it's your turn. \n";
+			p2.showBoard();
+			Bomb atck = p1.getBomb();
+			//p2.getBoard().moveShips();
+			p2.attackBoard(atck);
+			cout << "\n\n";
+			p2.showBoard();
+			
+		}
+		else if (j % 2 != 0)
+		{
+			// p2 a atacar
+			cout << name2 << " it's your turn. \n";
+			p1.showBoard();
+			Bomb atck = p2.getBomb();
+			//p1.getBoard().moveShips();
+			p1.attackBoard(atck);
+			cout << "\n\n";
+			p1.showBoard();
+		}
+		j++;
+
+	}
+		
 	return 0;
 }

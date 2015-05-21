@@ -161,16 +161,16 @@ bool Ship::attack(size_t partNumber) //partNumber = {0,1,…, size-1}
 
 bool Ship::isDestroyed() const // checks whether the ship is destroyed
 {
-	int counter;
+	int counter = 0;
 	for (unsigned int i = 0; i < size; i++)
 	{
-		if (status[i] == islower(symbol))
+		if (islower(status[i]))
 			counter++;
 	}
 
-	double size_to_destroy = size / 2;
-
-	if (counter > size_to_destroy)
+	double size_to_destroy = size / 2.0;
+	
+	if (counter >= size_to_destroy)
 		return true;
 
 	return false;

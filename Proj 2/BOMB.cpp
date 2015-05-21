@@ -5,8 +5,8 @@
 
 Bomb::Bomb(PositionChar targetPosition)
 {
-	targetLine = targetPosition.lin;
-	targetColumn = targetPosition.col;
+	targetLine = toupper(targetPosition.lin);
+	targetColumn = tolower(targetPosition.col);
 
 	bomb_deviation();
 }
