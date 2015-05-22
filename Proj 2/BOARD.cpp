@@ -200,7 +200,7 @@ bool Board::attack(const Bomb &b)
 	clrscr();
 	gotoxy(0, 0);
 
-	if (coordenates.lin < 0 || coordenates.col < 0 || coordenates.lin > numLines - 1 || coordenates.col > numColumns - 1)
+	if (coordenates.lin < 0 || coordenates.col < 0 || coordenates.lin > (unsigned int) numLines - 1 || coordenates.col > (unsigned int) numColumns - 1)
 		hit = false;
 	else if (board[coordenates.lin][coordenates.col] == -1 )
 		hit = false;
@@ -230,8 +230,8 @@ bool Board::attack(const Bomb &b)
 			setcolor(7, 0);
 			cout << " has been destroyed!";
 			deleteShip(ships[board[coordenates.lin][coordenates.col]]);
-			
 		}
+		setcolor(7, 0);
 	}
 	
 	else
