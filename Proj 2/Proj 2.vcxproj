@@ -17,6 +17,7 @@
     <ClInclude Include="POSITION.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
     </ClInclude>
+    <ClInclude Include="SCORE.h" />
     <ClInclude Include="SHIP.h" />
   </ItemGroup>
   <ItemGroup>
@@ -27,6 +28,7 @@
     <ClCompile Include="SHIP.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <Text Include="Highscores.txt" />
     <Text Include="p1.txt" />
     <Text Include="p2.txt" />
     <Text Include="R.txt" />

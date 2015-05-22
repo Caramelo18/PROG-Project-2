@@ -139,33 +139,35 @@ void Board::moveShips() // tries to randmonly move all the ships of the fleet
 	int count = 0;
 	for (unsigned int i = 0; i < ships.size(); i++)
 	{
-		Ship temp = ships[i];
-		bool move = ships[i].moveRand(0, 0, numLines - 1, numColumns- 1);
-		if (move || ships[i].getOrientation() != temp.getOrientation())
+		if (!ships[i].isDestroyed())
 		{
-			deleteShip(temp);
-			while (1)
+			Ship temp = ships[i];
+			bool move = ships[i].moveRand(0, 0, numLines - 1, numColumns - 1);
+			if (move || ships[i].getOrientation() != temp.getOrientation())
 			{
-				if (putShip(ships[i], i))
-					break;
-				else if (count >= 20)
+				deleteShip(temp);
+				while (1)
 				{
-					ships[i] = temp;
-					putShip(temp, i);
+					if (putShip(ships[i], i))
+						break;
+					else if (count >= 20)
+					{
+						ships[i] = temp;
+						putShip(temp, i);
+					}
+					else
+					{
+						ships[i] = temp;
+						ships[i].moveRand(0, 0, numLines - 1, numColumns - 1);
+					}
+					count++;
 				}
-				else
-				{
-					ships[i] = temp;
-					ships[i].moveRand(0, 0, numLines - 1, numColumns - 1);
-				}
-				count++;
+			}
+			else
+			{
+				ships[i] = temp;
 			}
 		}
-		else
-		{
-			ships[i] = temp;
-		}
-
 	}
 }
 

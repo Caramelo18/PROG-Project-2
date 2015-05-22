@@ -30,6 +30,9 @@
     <ClInclude Include="POSITION.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="SCORE.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="BOARD.cpp">
@@ -56,6 +59,9 @@
       <Filter>Resource Files</Filter>
     </Text>
     <Text Include="R.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+    <Text Include="Highscores.txt">
       <Filter>Resource Files</Filter>
     </Text>
   </ItemGroup>

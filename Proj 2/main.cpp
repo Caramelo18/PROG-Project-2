@@ -11,9 +11,50 @@
 #include "BOARD.h"
 #include "SHIP.h"
 #include "PLAYER.h"
+#include "SCORE.h"
 
 using namespace std;
+void readScores(vector<Score> &scores)
+{
+	fstream file("Highscores.txt");
+	string line, temp, name;
+	int score;
+	if (file.is_open())
+	{
+		file << "Battleship Highscores" << endl;
+		for (int i = 0; i < 10; i++)
+			file << i << "  -  Player  -  0" << endl;
+		file.close();
+		file.open("Highscores.txt");
+		getline(file, line);
+		for (int i = 0; i < 10; i++)
+		{
+			getline(file, line);
+			stringstream ss(line);
+			ss >> temp >> temp >> name >> temp >> score;
+			scores[i].name = name;
+			scores[i].score = score;
+		}
+	}
+	else
+	{
+		getline(file, line);
+		for (int i = 0; i < 10; i++)
+		{
+			getline(file, line);
+			stringstream ss(line);
+			ss >> temp >> temp >> name >> score;
+			scores[i].name = name;
+			scores[i].score = score;
+		}
+	}
+}
 
+void showScores(vector<Score> &scores)
+{
+	for (int i = 0; i < 10; i++)
+		cout << scores[i].name << " - " << scores[i].score << endl;
+}
 
 int main()
 {
@@ -21,20 +62,37 @@ int main()
 	
 	string name1, name2;
 	string fich1, fich2;
+	bool validfile = true;
 	int j = 1;
-	
-	
+
+	vector<Score> scores(10);
+
 	cout << "Player 1 write your name: ";
 	getline(cin, name1);
-	cout << name1 << " introduce the file name you want to use: ";
-	cin >> fich1;
+	do
+	{
+		cout << name1 << " introduce the file name you want to use: ";
+		cin >> fich1;
+		ifstream file(fich1);
+		if (file.fail())
+			validfile = false;
+		else validfile = true;
+
+	} while (!validfile);
 	Player p1(name1, fich1);
 	cin.ignore(1000, '\n');
 	
 	cout << "Player 2 write your name: ";
 	getline(cin, name2);
-	cout << name2 << " introduce the file name you want to use: ";
-	cin >> fich2;
+	do
+	{
+		cout << name2 << " introduce the file name you want to use: ";
+		cin >> fich2;
+		ifstream file(fich2);
+		if (file.fail())
+			validfile = false;
+		else validfile = true;
+	} while (!validfile);
 	Player p2(name2, fich2);
 	cin.ignore(1000, '\n');
 	
