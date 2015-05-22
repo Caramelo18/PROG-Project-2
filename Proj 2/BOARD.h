@@ -22,6 +22,8 @@ public:
 	void deleteShip(const Ship &s);
 	vector<Ship> getShips() const;
 	bool areDestroyed() const;
+	int getLines() const;
+	int getColumns() const;
 	
 private:
 	int numLines, numColumns; // redundant info …

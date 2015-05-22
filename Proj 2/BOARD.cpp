@@ -19,6 +19,31 @@ void setcolor(unsigned int color, unsigned int background_color)
 		SetConsoleTextAttribute(hCon, color | BACKGROUND_BLUE | BACKGROUND_GREEN | BACKGROUND_RED);
 }
 
+void clrscr(void)
+{
+	COORD coordScreen = { 0, 0 }; // upper left corner
+	DWORD cCharsWritten;
+	DWORD dwConSize;
+	HANDLE hCon = GetStdHandle(STD_OUTPUT_HANDLE);
+	CONSOLE_SCREEN_BUFFER_INFO csbi;
+	GetConsoleScreenBufferInfo(hCon, &csbi);
+	dwConSize = csbi.dwSize.X * csbi.dwSize.Y;
+	// fill with spaces
+	FillConsoleOutputCharacter(hCon, TEXT(' '), dwConSize, coordScreen, &cCharsWritten);
+	GetConsoleScreenBufferInfo(hCon, &csbi);
+	FillConsoleOutputAttribute(hCon, csbi.wAttributes, dwConSize, coordScreen, &cCharsWritten);
+	// cursor to upper left corner
+	SetConsoleCursorPosition(hCon, coordScreen);
+}
+
+void gotoxy(int x, int y)
+{
+	COORD coord;
+	coord.X = x;
+	coord.Y = y;
+	SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
+}
+
 Board::Board()
 {
 	numColumns = 0;
@@ -61,9 +86,11 @@ bool Board::putShip(const Ship &s, unsigned int num) // adds ship to the board, 
 	bool free = true;
 	if (s.getOrientation() == 'H') // orientacao horizontal
 	{
+		if (column + s.getSize() > numColumns || line < 0 || column < 0 || line > numLines)
+			return false;
 		for (int j = 0; j < s.getSize(); j++) // preencher o numero de posicoes correspondentes ao tamanho do navio
 		{
-			if (board[line][column + j] != -1 && board[line][column + j] != num || column + s.getSize() > numColumns || line < 0 || column < 0 || line > numLines)
+			if (board[line][column + j] != -1 && board[line][column + j] != num)
 			{
 				free = false;
 				break;
@@ -72,9 +99,11 @@ bool Board::putShip(const Ship &s, unsigned int num) // adds ship to the board, 
 	}
 	else                           // orientacao vertical
 	{
+		if (line + s.getSize() > numLines || line < 0 || column < 0 || column > numColumns)
+			return false;
 		for (int j = 0; j < s.getSize(); j++) // preencher o numero de posicoes correspondentes ao tamanho do navio
 		{
-			if (board[line + j][column] != -1 && board[line][column + j] != num || line + s.getSize() > numLines || line < 0 || column < 0 || column > numColumns)
+			if (board[line + j][column] != -1 && board[line][column + j] != num)
 			{
 				free = false;	
 				break;
@@ -109,6 +138,7 @@ void Board::putShips()
 
 void Board::moveShips() // tries to randmonly move all the ships of the fleet
 {
+	int count = 0;
 	for (unsigned int i = 0; i < ships.size(); i++)
 	{
 		Ship temp = ships[i];
@@ -120,11 +150,17 @@ void Board::moveShips() // tries to randmonly move all the ships of the fleet
 			{
 				if (putShip(ships[i], i))
 					break;
+				else if (count >= 20)
+				{
+					ships[i] = temp;
+					putShip(temp, i);
+				}
 				else
 				{
 					ships[i] = temp;
 					ships[i].moveRand(0, 0, numLines - 1, numColumns - 1);
 				}
+				count++;
 			}
 		}
 		else
@@ -163,7 +199,12 @@ bool Board::attack(const Bomb &b)
 	coordenates.lin = (int)(b.getTargetPosition().lin - 'A');
 	coordenates.col = (int)(b.getTargetPosition().col - 'a');
 
-	if (board[coordenates.lin][coordenates.col] == -1)
+	clrscr();
+	gotoxy(0, 0);
+
+	if (coordenates.lin < 0 || coordenates.col < 0 || coordenates.lin > numLines - 1 || coordenates.col > numColumns - 1)
+		hit = false;
+	else if (board[coordenates.lin][coordenates.col] == -1 )
 		hit = false;
 
 	if (hit)
@@ -172,6 +213,12 @@ bool Board::attack(const Bomb &b)
 			partNumber = coordenates.col - ships[board[coordenates.lin][coordenates.col]].getPosition().col;
 		else if (ships[board[coordenates.lin][coordenates.col]].getOrientation() == 'V')
 			partNumber = coordenates.lin - ships[board[coordenates.lin][coordenates.col]].getPosition().lin;
+
+		char h = ships[board[coordenates.lin][coordenates.col]].getStatus()[partNumber];
+		if (islower(h))
+		{
+			cout << "Position has already been hit! \n";
+		}
 
 		ships[board[coordenates.lin][coordenates.col]].attack(partNumber);
 		setcolor(10, 0);
@@ -193,7 +240,7 @@ bool Board::attack(const Bomb &b)
 	{
 		setcolor(12, 0);
 		cout << "\nMiss! \n";
-		setcolor(15, 0);
+		setcolor(7, 0);
 	}
 
 	return hit;
@@ -265,4 +312,14 @@ bool Board::areDestroyed() const
 			destroyed = false;
 	}
 	return destroyed;
+}
+
+int Board::getColumns() const
+{
+	return numColumns;
+}
+
+int Board::getLines() const
+{
+	return numLines;
 }

@@ -14,30 +14,6 @@
 
 using namespace std;
 
-void clrscr(void)
-{
-	COORD coordScreen = { 0, 0 }; // upper left corner
-	DWORD cCharsWritten;
-	DWORD dwConSize;
-	HANDLE hCon = GetStdHandle(STD_OUTPUT_HANDLE);
-	CONSOLE_SCREEN_BUFFER_INFO csbi;
-	GetConsoleScreenBufferInfo(hCon, &csbi);
-	dwConSize = csbi.dwSize.X * csbi.dwSize.Y;
-	// fill with spaces
-	FillConsoleOutputCharacter(hCon, TEXT(' '), dwConSize, coordScreen, &cCharsWritten);
-	GetConsoleScreenBufferInfo(hCon, &csbi);
-	FillConsoleOutputAttribute(hCon, csbi.wAttributes, dwConSize, coordScreen, &cCharsWritten);
-	// cursor to upper left corner
-	SetConsoleCursorPosition(hCon, coordScreen);
-}
-
-void gotoxy(int x, int y)
-{
-	COORD coord;
-	coord.X = x;
-	coord.Y = y;
-	SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
-}
 
 int main()
 {
@@ -47,23 +23,23 @@ int main()
 	string fich1, fich2;
 	int j = 1;
 	
-	/*
-	cout << "Jogador 1 introduza o nome: ";
+	
+	cout << "Player 1 write your name: ";
 	getline(cin, name1);
-	cout << name1 << " introduza o nome do ficheiro a utilizar: ";
+	cout << name1 << " introduce the file name you want to use: ";
 	cin >> fich1;
 	Player p1(name1, fich1);
 	cin.ignore(1000, '\n');
 	
-	cout << "Jogador 2 introduza o nome: ";
+	cout << "Player 2 write your name: ";
 	getline(cin, name2);
-	cout << name2 << " introduza o nome do ficheiro a utilizar: ";
+	cout << name2 << " introduce the file name you want to use: ";
 	cin >> fich2;
 	Player p2(name2, fich2);
 	cin.ignore(1000, '\n');
-	*/
-	Player p1("Jorge", "p2.txt");
-	Player p2("Isidoro", "p1.txt");
+	
+	//Player p1("Jorge", "p2.txt");
+	//Player p2("Isidoro", "p1.txt");
 	
 	p1.getBoard().putShips();
 	p2.getBoard().putShips();
@@ -75,7 +51,7 @@ int main()
 			cout << name2 << "is the winner. Congratulations!" << endl;
 			break;
 		}
-		else if (p1.getBoard().areDestroyed())
+		else if (p2.getBoard().areDestroyed())
 		{
 			cout << name1 << "is the winner. Congratulations!" << endl;
 			break;
@@ -84,25 +60,25 @@ int main()
 		if (j % 2 == 0)
 		{
 			// p1 a atacar
-			cout << name1 << " it's your turn. \n";
+			cout << name1 << " it's your turn. \n\n";
 			p2.showBoard();
 			Bomb atck = p1.getBomb();
 			//p2.getBoard().moveShips();
 			p2.attackBoard(atck);
 			cout << "\n\n";
-			p2.showBoard();
+			// p2.showBoard();
 			
 		}
 		else if (j % 2 != 0)
 		{
 			// p2 a atacar
-			cout << name2 << " it's your turn. \n";
+			cout << name2 << " it's your turn. \n\n";
 			p1.showBoard();
 			Bomb atck = p2.getBomb();
 			//p1.getBoard().moveShips();
 			p1.attackBoard(atck);
 			cout << "\n\n";
-			p1.showBoard();
+			//p1.showBoard();
 		}
 		j++;
 
