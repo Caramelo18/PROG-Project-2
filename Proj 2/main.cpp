@@ -75,7 +75,7 @@ int main()
 			cout << name2 << "is the winner. Congratulations!" << endl;
 			break;
 		}
-		else if (p2.getBoard().areDestroyed())
+		else if (p1.getBoard().areDestroyed())
 		{
 			cout << name1 << "is the winner. Congratulations!" << endl;
 			break;

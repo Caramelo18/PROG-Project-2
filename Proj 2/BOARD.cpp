@@ -59,11 +59,9 @@ bool Board::putShip(const Ship &s, unsigned int num) // adds ship to the board, 
 	bool free = true;
 	if (s.getOrientation() == 'H') // orientacao horizontal
 	{
-		if (column + s.getSize() > numColumns || line < 0 || column < 0 || line > numLines)
-			return false;
 		for (int j = 0; j < s.getSize(); j++) // preencher o numero de posicoes correspondentes ao tamanho do navio
 		{
-			if (board[line][column + j] != -1 && board[line][column + j] != num)
+			if (board[line][column + j] != -1 && board[line][column + j] != num || column + s.getSize() > numColumns || line < 0 || column < 0 || line > numLines)
 			{
 				free = false;
 				break;
@@ -72,11 +70,9 @@ bool Board::putShip(const Ship &s, unsigned int num) // adds ship to the board, 
 	}
 	else                           // orientacao vertical
 	{
-		if (line + s.getSize() > numLines || line < 0 || column < 0 || column > numColumns)
-			return false;
 		for (int j = 0; j < s.getSize(); j++) // preencher o numero de posicoes correspondentes ao tamanho do navio
 		{
-			if (board[line + j][column] != -1 && board[line][column + j] != num)
+			if (board[line + j][column] != -1 && board[line][column + j] != num || line + s.getSize() > numLines || line < 0 || column < 0 || column > numColumns)
 			{
 				free = false;	
 				break;
@@ -162,17 +158,12 @@ bool Board::attack(const Bomb &b)
 	bool hit = true;
 	Position<unsigned int> coordenates;
 	int partNumber;
-	coordenates.lin = (unsigned int)(b.getTargetPosition().lin - 'A');
-	coordenates.col = (unsigned int)(b.getTargetPosition().col - 'a');
-	b.show();
-	if (coordenates.lin < 0 || coordenates.col < 0 || coordenates.lin > numLines - 1 || coordenates.col > numColumns - 1)
-	{
-		return false;
-	}
-	else if (board[coordenates.lin][coordenates.col] == -1)
-		return false;
-		
-	
+	coordenates.lin = (int)(b.getTargetPosition().lin - 'A');
+	coordenates.col = (int)(b.getTargetPosition().col - 'a');
+
+	if (board[coordenates.lin][coordenates.col] == -1)
+		hit = false;
+
 	if (hit)
 	{
 		if (ships[board[coordenates.lin][coordenates.col]].getOrientation() == 'H')
