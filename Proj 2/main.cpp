@@ -19,11 +19,11 @@ void readScores(vector<Score> &scores)
 	fstream file("Highscores.txt");
 	string line, temp, name;
 	int score;
-	if (file.is_open())
+	if (file.eof())
 	{
 		file << "Battleship Highscores" << endl;
 		for (int i = 0; i < 10; i++)
-			file << i << "  -  Player  -  0" << endl;
+			file << i + 1 << "  -  Player  -  999999" << endl;
 		file.close();
 		file.open("Highscores.txt");
 		getline(file, line);
@@ -56,6 +56,36 @@ void showScores(vector<Score> &scores)
 		cout << scores[i].name << " - " << scores[i].score << endl;
 }
 
+void updateScore(vector<Score> &scores, unsigned int playerScore, string playerName)
+{
+	int i;
+
+	for (i = 0; i < scores.size(); i++)
+	{
+		if (playerScore < scores[i].score)
+			break;
+	}
+
+	for (int j = 0; j < scores.size() - 1 - i; j++)
+	{
+		scores[scores.size() - j - 1].score = scores[scores.size() - j - 2].score;
+		scores[scores.size() - j - 1].name = scores[scores.size() - j - 2].name;
+	}
+
+	scores[i].name = playerName;
+	scores[i].score = playerScore;
+
+	fstream file("Highscores.txt");
+	string line, temp, name;
+
+	file << "Battleship Highscores" << endl;
+	for (int i = 0; i < 10; i++)
+	{
+		file << i + 1 << "  -  " << scores[i].name << " - " << scores[i].score << endl;	
+	}
+	file.close();
+}
+
 int main()
 {
 	srand((unsigned)time(NULL));
@@ -66,7 +96,7 @@ int main()
 	int j = 1;
 
 	vector<Score> scores(10);
-
+	/*
 	cout << "Player 1 write your name: ";
 	getline(cin, name1);
 	do
@@ -141,6 +171,11 @@ int main()
 		j++;
 
 	}
-		
+		*/
+
+	readScores(scores);
+	updateScore(scores, 11, "Miquelina");
+	showScores(scores);
+
 	return 0;
 }

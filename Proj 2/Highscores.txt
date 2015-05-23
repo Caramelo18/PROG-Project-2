@@ -1,11 +1,11 @@
 Battleship Highscores
-0  -  Player  -  0
-1  -  Player  -  0
-2  -  Player  -  0
-3  -  Player  -  0
-4  -  Player  -  0
-5  -  Player  -  0
-6  -  Player  -  0
-7  -  Player  -  0
-8  -  Player  -  0
-9  -  Player  -  0
+1  -  Miquelina - 11
+2  -  Isidoro - -858993460
+3  -  Isidoro - -858993460
+4  -  - - -858993460
+5  -  - - -858993460
+6  -  - - -858993460
+7  -  - - -858993460
+8  -  - - -858993460
+9  -  - - -858993460
+10  -  - - -858993460
