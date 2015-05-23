@@ -56,7 +56,7 @@ void showScores(vector<Score> &scores)
 		cout << scores[i].name << " - " << scores[i].score << endl;
 }
 
-void updateScore(vector<Score> &scores, unsigned int playerScore, string playerName)
+void updateScore(vector<Score> &scores, unsigned int playerScore, string playerName) //nao funciona a 100%
 {
 	int i;
 
