@@ -194,7 +194,7 @@ void game(vector<Score> &scores)
 			time_t startTime = time(NULL);
 			// p1 a atacar
 			cout << name1 << " it's your turn. \n\n";
-			p2.showBoard();
+			cout << p2.getBoard(); //p2.showBoard();
 			Bomb atck = p1.getBomb();
 			p2.attackBoard(atck);
 			cout << "\n\n";
@@ -207,7 +207,7 @@ void game(vector<Score> &scores)
 			time_t startTime = time(NULL);
 			// p2 a atacar
 			cout << name2 << " it's your turn. \n\n";
-			p1.showBoard();
+			cout << p1.getBoard(); //p1.showBoard();
 			Bomb atck = p2.getBomb();
 			p1.attackBoard(atck);
 			cout << "\n\n";
@@ -233,6 +233,8 @@ int main()
 
 	gotoxy(35, 0);
 	cout << "BATTLESHIP \n\n";
+	gotoxy(20, 22);
+	cout << "Developed by Bruno Barros and Fabio Caramelo - FEUP - MIEIC";
 	gotoxy(0, 2);
 	cout << "1 - Play Game" << endl;
 	cout << "2 - View Highscores" << endl;

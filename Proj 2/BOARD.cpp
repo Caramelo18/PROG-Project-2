@@ -242,9 +242,9 @@ void Board::display() const // displays the colored board during the game
 			{
 				setcolor(ships[board[i][k]].getColor(), 15);
 				if (ships[board[i][k]].getOrientation() == 'H')
-					std::cout << setw(2) << ships[board[i][k]].getStatus()[k - ships[board[i][k]].getPosition().col]; // <- aterar [0]
+					std::cout << setw(2) << ships[board[i][k]].getStatus()[k - ships[board[i][k]].getPosition().col];
 				else if (ships[board[i][k]].getOrientation() == 'V')
-					std::cout << setw(2) << ships[board[i][k]].getStatus()[i - ships[board[i][k]].getPosition().lin]; // <- aterar [0]
+					std::cout << setw(2) << ships[board[i][k]].getStatus()[i - ships[board[i][k]].getPosition().lin]; 
 			}
 		}
 		std::cout << endl;
@@ -289,4 +289,52 @@ int Board::getColumns() const
 int Board::getLines() const
 {
 	return numLines;
+}
+
+ostream& operator<<(ostream& output, const Board &b)
+{
+	for (int i = 'a'; i < 'a' + b.getColumns(); i++) // Identificação das colunas
+	{
+		setcolor(7, 0);
+		if (i == 'a')
+			output << "  " << (char)i;
+		else output << fixed << setw(2) << (char)i;
+	}
+	output << endl;
+
+	for (int i = 0; i < b.numLines; i++)
+	{
+		for (int k = -1; k < b.numColumns; k++)
+		{
+			if (k == -1)
+			{
+				setcolor(7, 0);
+				output << (char)('A' + i); // Identificação das linhas
+			}
+			else if (b.board[i][k] == -1)
+			{
+				setcolor(9, 15);
+				output << setw(2) << ".";
+			}
+			else
+			{
+				setcolor(b.ships[b.board[i][k]].getColor(), 15);
+				if (b.ships[b.board[i][k]].getOrientation() == 'H')
+					output << setw(2) << b.ships[b.board[i][k]].getStatus()[k - b.ships[b.board[i][k]].getPosition().col];
+				else if (b.ships[b.board[i][k]].getOrientation() == 'V')
+					output << setw(2) << b.ships[b.board[i][k]].getStatus()[i - b.ships[b.board[i][k]].getPosition().lin];
+			}
+		}
+		output << endl;
+	}
+	setcolor(7, 0);
+	return output;
+}
+
+bool operator==(const Board &board1, const Board &board2)
+{
+	return{
+		board1.numLines == board2.numLines &&
+		board1.numColumns == board2.numColumns
+	};
 }
