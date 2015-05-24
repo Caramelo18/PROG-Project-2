@@ -14,6 +14,23 @@
 #include "SCORE.h"
 
 using namespace std;
+
+int calculateScore(time_t playerTime, Player player)
+{
+	int score;
+	int boardArea = player.getBoard().getColumns() * player.getBoard().getLines();
+	int shipsArea = 0;
+
+	for (int i = 0; i < player.getBoard().getShips().size(); i++)
+	{
+		shipsArea = shipsArea + player.getBoard().getShips()[i].getSize();
+	}
+
+	score = playerTime * ((double)shipsArea / boardArea);
+
+	return score;
+}
+
 void readScores(vector<Score> &scores)
 {
 	fstream file("Highscores.txt");
@@ -116,9 +133,12 @@ void game()
 	string fich1, fich2;
 	bool validfile = true;
 	int j = 1;
+	time_t timeP1 = 0;
+	time_t timeP2 = 0;
+	int winnerScore;
 
 	vector<Score> scores(10);
-	/*
+	
 	cout << "Player 1 write your name: ";
 	getline(cin, name1);
 	do
@@ -159,16 +179,21 @@ void game()
 		if (p1.getBoard().areDestroyed())
 		{
 			cout << name2 << "is the winner. Congratulations!" << endl;
+			winnerScore = calculateScore(timeP2, p2);
+			updateScore(scores, winnerScore, name2);
 			break;
 		}
 		else if (p2.getBoard().areDestroyed())
 		{
 			cout << name1 << "is the winner. Congratulations!" << endl;
+			winnerScore = calculateScore(timeP1, p1);
+			updateScore(scores, winnerScore, name1);
 			break;
 		}
 
 		if (j % 2 == 0)
 		{
+			time_t startTime = time(NULL);
 			// p1 a atacar
 			cout << name1 << " it's your turn. \n\n";
 			p2.showBoard();
@@ -177,10 +202,13 @@ void game()
 			p2.attackBoard(atck);
 			cout << "\n\n";
 			// p2.showBoard();
-			
+			time_t endTime = time(NULL);
+			timeP1 = timeP1 + (endTime - startTime);
+
 		}
 		else if (j % 2 != 0)
 		{
+			time_t startTime = time(NULL);
 			// p2 a atacar
 			cout << name2 << " it's your turn. \n\n";
 			p1.showBoard();
@@ -189,14 +217,15 @@ void game()
 			p1.attackBoard(atck);
 			cout << "\n\n";
 			//p1.showBoard();
+			time_t endTime = time(NULL);
+			timeP2 = timeP2 + (endTime - startTime);
 		}
 		j++;
 
 	}
-		*/
-
-	updateScore(scores, 11, "Miquelina");
-	showScores(scores);
+		
+	cout << timeP1 << endl << winnerScore << endl;
+	//showScores(scores);
 
 }
 
@@ -234,6 +263,7 @@ int main()
 			cin.ignore(1000, '\n');
 		}
 		else validoption = true;
+		cin.ignore(1000, '\n');
 	} while (!validoption);
 	if (option == 1)
 		game();
