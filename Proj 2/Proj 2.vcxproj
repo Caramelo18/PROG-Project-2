@@ -13,19 +13,23 @@
   <ItemGroup>
     <ClInclude Include="BOARD.h" />
     <ClInclude Include="BOMB.h" />
+    <ClInclude Include="LAYOUT.h" />
     <ClInclude Include="PLAYER.h" />
     <ClInclude Include="POSITION.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
     </ClInclude>
     <ClInclude Include="SCORE.h" />
     <ClInclude Include="SHIP.h" />
+    <ClInclude Include="TABLECREATOR.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="BOARD.cpp" />
     <ClCompile Include="BOMB.cpp" />
+    <ClCompile Include="LAYOUT.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="PLAYER.cpp" />
     <ClCompile Include="SHIP.cpp" />
+    <ClCompile Include="TABLECREATOR.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="Highscores.txt" />

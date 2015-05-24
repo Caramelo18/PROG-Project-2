@@ -33,6 +33,12 @@
     <ClInclude Include="SCORE.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="TABLECREATOR.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="LAYOUT.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="BOARD.cpp">
@@ -48,6 +54,12 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="SHIP.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="TABLECREATOR.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="LAYOUT.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
