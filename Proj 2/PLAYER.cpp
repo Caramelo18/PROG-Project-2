@@ -55,7 +55,6 @@ void Player::attackBoard(const Bomb &b) // "recebe" a bomba vinda do oponente;
 	
 }
 
-
 Board& Player::getBoard() //devolve o tabuleiro do jogador em questão
 {
 	return board;

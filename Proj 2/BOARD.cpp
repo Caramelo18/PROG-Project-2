@@ -51,7 +51,7 @@ bool Board::putShip(const Ship &s, unsigned int num) // adds ship to the board, 
 	bool free = true;
 	if (s.getOrientation() == 'H') // orientacao horizontal
 	{
-		if (column + s.getSize() > numColumns || line < 0 || column < 0 || line > numLines) // verifica se o navio esta fora do tabuleiro
+		if (column + s.getSize() > numColumns || line < 0 || column < 0 || line >= numLines) // verifica se o navio esta fora do tabuleiro
 			return false;
 		for (int j = 0; j < s.getSize(); j++) // verifica o numero de posicoes correspondentes ao tamanho do navio
 		{
@@ -64,11 +64,11 @@ bool Board::putShip(const Ship &s, unsigned int num) // adds ship to the board, 
 	}
 	else                           // orientacao vertical
 	{
-		if (line + s.getSize() > numLines || line < 0 || column < 0 || column > numColumns) // verifica se o navio esta fora do tabuleiro
+		if (line + s.getSize() > numLines || line < 0 || column < 0 || column >= numColumns) // verifica se o navio esta fora do tabuleiro
 			return false;
 		for (int j = 0; j < s.getSize(); j++) // verifica o numero de posicoes correspondentes ao tamanho do navio
 		{
-			if (board[line + j][column] != -1 && board[line][column + j] != num)
+			if (board[line + j][column] != -1 && board[line + j][column] != num)
 			{
 				free = false;	
 				break;
@@ -161,7 +161,7 @@ void Board::deleteShip(const Ship &s)
 bool Board::attack(const Bomb &b)
 {
 	bool hit = true;
-	Position<unsigned int> coordenates;
+	Position<int> coordenates;
 	int partNumber;
 	coordenates.lin = (int)(b.getTargetPosition().lin - 'A'); // conversao das coordenadas para inteiros
 	coordenates.col = (int)(b.getTargetPosition().col - 'a'); // conversao das coordenadas para inteiros

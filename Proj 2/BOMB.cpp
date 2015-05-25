@@ -23,7 +23,7 @@ void Bomb::bomb_deviation()
 		targetColumn = targetColumn - 1; //dirige a bomba para Oeste
 
 	else if (i == 2)
-		targetLine = targetLine + 1; //dirige a bomba par Sul
+		targetLine = targetLine + 1; //dirige a bomba para Sul
 
 	else if (i == 3)
 		targetColumn = targetColumn + 1; //dirige a bomba para Este

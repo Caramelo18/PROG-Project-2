@@ -19,14 +19,14 @@ public:
 	void show() const; // shows the attributes of the ship (for debugging)
 	char getSymbol() const;
 	int getSize() const;
-	Position<unsigned int> getPosition() const;
+	Position<int> getPosition() const;
 	char getOrientation() const;
 	int getColor() const;
 	string getStatus() const;
 	
 private:
 	char symbol; // 'P' = "porta-aviões"; 'F' = "fragata"; … (portuguese names)
-	Position<unsigned int> position; // coordinates of the upper left corner of the ship
+	Position<int> position; // coordinates of the upper left corner of the ship
 	char orientation; // 'H' = horizontal; 'V' = vertical
 	unsigned int size; // number os cells occupied by the ship, on the board
 	unsigned int color; // color code: o=BLACK, 1=BLUE, … (see annex of 1st proj.)

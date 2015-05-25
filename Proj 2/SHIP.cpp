@@ -190,7 +190,7 @@ int Ship::getSize() const // para se aceder ao tamanho do navio
 	return size;
 }
 
-Position<unsigned int> Ship::getPosition() const  // para se aceder a posicao do navio no tabuleiro
+Position<int> Ship::getPosition() const  // para se aceder a posicao do navio no tabuleiro
 {
 	return position;
 }
