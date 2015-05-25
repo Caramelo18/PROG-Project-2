@@ -169,7 +169,7 @@ bool Board::attack(const Bomb &b)
 	clrscr();
 	gotoxy(0, 0);
 
-	if (coordenates.lin < 0 || coordenates.col < 0 || coordenates.lin > (unsigned int) numLines - 1 || coordenates.col > (unsigned int) numColumns - 1) // verifica se a bomba caiu fora do tabuleiro
+	if (coordenates.lin < 0 || coordenates.col < 0 || coordenates.lin >  numLines - 1 || coordenates.col > numColumns - 1) // verifica se a bomba caiu fora do tabuleiro
 		hit = false;
 	else if (board[coordenates.lin][coordenates.col] == -1 ) //caso a bomba tenha acertado no "mar" nao atinge um navio
 		hit = false;
