@@ -28,7 +28,7 @@ void escreveTamanho(int lin, int col, string filename)
 	ofstream fich;
 	fich.open(filename);
 
-	fich << lin << " x " << col << endl; // Escreve no ficheiro as dimensoes
+	fich << lin << " x " << col; // Escreve no ficheiro as dimensoes
 	fich.close();
 }
 
@@ -37,8 +37,8 @@ void escreveFicheiro(char ident, int tamanho, char linha, char coluna, char ori,
 {
 	ofstream fich;
 	fich.open(filename, ios::app); // Escreve depois do que ja esta escrito
-
-	fich << ident << " " << tamanho << " " << linha << coluna << " " << ori << " " << cor << endl;
+	fich << endl;
+	fich << ident << " " << tamanho << " " << linha << coluna << " " << ori << " " << cor;
 	fich.close();
 
 }

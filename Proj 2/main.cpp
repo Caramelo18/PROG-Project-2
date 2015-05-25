@@ -244,7 +244,7 @@ void game(vector<Score> &scores)
 int main()
 {
 	srand((unsigned)time(NULL));
-	int option;
+	string option;
 	bool validoption = true;
 	char cont = 'Y';
 	do
@@ -265,41 +265,34 @@ int main()
 		do
 		{
 			std::cout << "Please select an option: ";
-			std::cin >> option;
-			std::cin.clear();
-			
-			if (std::cin.fail() || std::cin.eof() || option > 4 || option < 1)
-			{
-				validoption = false;
-				std::cin.ignore(1000, '\n');
-				std::cin.clear();
-			}
-			else
-			{
-				validoption = true;
-				//std::cin.ignore(1000, '\n');
-			}
-		} while (!validoption);
-		if (option == 1)
+			std::getline(cin, option);
+			if (std::cin.eof())
+				cin.clear();
+			else if (option.length() != 1 || option[0] > '4' || option[0] < '1')
+				option = "";
+		} while (option.length() != 1);
+
+		if (option[0] == '1')
 		{
 			clrscr();
 			game(scores);
 		}
-		else if (option == 2)
+		else if (option[0] == '2')
 		{
 			clrscr();
 			showScores(scores);
 		}
-		else if (option == 3)
+		else if (option[0] == '3')
 		{
 			clrscr();
 			createTable();
 		}
-		else if (option == 4)
+		else if (option[0] == '4')
 			exit(1);
 
 		std::cout << "\n\nDo you want to continue? (Y/N)";
 		std::cin >> cont;
+		cin.ignore(1000, '\n');
 		clrscr();
 	} while (cont == 'Y' || cont == 'y');
 	
