@@ -46,19 +46,6 @@ void readScores(vector<Score> &scores)
 			scores[i].name = "Player";
 			scores[i].score = 999999;
 		}
-
-		/*file << "Battleship Highscores" << endl;
-		for (int i = 0; i < 10; i++) 
-			file << i + 1 << " - Player - 999999" << endl;
-		getline(file, line);
-		for (int i = 0; i < 10; i++)
-		{
-			getline(file, line);
-			stringstream ss(line);
-			ss >> temp >> temp >> name >> temp >> score;
-			scores[i].name = name;
-			scores[i].score = score;
-		}*/
 	}
 	else
 	{
