@@ -113,11 +113,11 @@ void Board::moveShips() // tries to randmonly move all the ships of the fleet
 			if (move || ships[i].getOrientation() != temp.getOrientation())
 			{
 				deleteShip(temp);
-				while (1)
+				while (count <= 20)
 				{
 					if (putShip(ships[i], i))
 						break;
-					else if (count >= 20)
+					else if (count == 20)
 					{
 						ships[i] = temp;
 						putShip(temp, i);
@@ -331,10 +331,10 @@ ostream& operator<<(ostream& output, const Board &b)
 	return output;
 }
 
-bool operator==(const Board &board1, const Board &board2)
+bool operator!=(const Board &board1, const Board &board2)
 {
 	return{
-		board1.numLines == board2.numLines &&
-		board1.numColumns == board2.numColumns
+		board1.numLines != board2.numLines ||
+		board1.numColumns != board2.numColumns
 	};
 }

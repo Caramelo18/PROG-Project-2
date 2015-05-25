@@ -28,7 +28,7 @@ int calculateScore(time_t playerTime, Player opponent)
 		shipsArea = shipsArea + opponent.getBoard().getShips()[i].getSize();
 	}
 
-	score = playerTime * ((double)shipsArea / boardArea);
+	score = (int)round(playerTime * ((double)shipsArea / boardArea));
 
 	return score;
 }
@@ -75,17 +75,18 @@ void readScores(vector<Score> &scores)
 
 void showScores(vector<Score> &scores)
 {
+	cout << "\n    Battleship Highscores \n\n";
 	for (int i = 0; i < 10; i++)
-		cout << i + 1 << " - " << scores[i].name << " - " << scores[i].score << endl;
+		cout << fixed << setw(2) << i + 1 << " - " << setw(13) << scores[i].name << " - " << setw(6) << scores[i].score << endl;
 }
 
-bool updateScore(vector<Score> &scores, unsigned int playerScore, string playerName) //nao funciona a 100%
+bool updateScore(vector<Score> &scores, unsigned int playerScore, string playerName) 
 {
 	unsigned int i = 0;
 
 	for (i; i < scores.size(); i++)
 	{
-		if (playerScore < scores[i].score)
+		if (playerScore < (unsigned) scores[i].score)
 			break;
 	}
 
@@ -120,14 +121,19 @@ void game(vector<Score> &scores)
 	string name1, name2;
 	string fich1, fich2;
 	bool validfile = true;
-	int j = 1;
+	int j = rand() % 2;
 	time_t timeP1 = 0;
 	time_t timeP2 = 0;
 	int winnerScore;
+	char cont = 'Y';
 
-	
-	cout << "Player 1 write your name: ";
-	getline(cin, name1);
+	do
+	{
+		cout << "Player 1 write your name: ";
+		getline(cin, name1);
+		cin.clear();
+		
+	} while (name1 == "");
 	do
 	{
 		cout << name1 << " introduce the file name you want to use: ";
@@ -145,8 +151,13 @@ void game(vector<Score> &scores)
 	Player p1(name1, fich1);
 	cin.ignore(1000, '\n');
 	
-	cout << "Player 2 write your name: ";
-	getline(cin, name2);
+	do
+	{
+		cout << "Player 2 write your name: ";
+		getline(cin, name2);
+		cin.clear();
+
+	} while (name2 == "");
 	do
 	{
 		cout << name2 << " introduce the file name you want to use: ";
@@ -163,9 +174,20 @@ void game(vector<Score> &scores)
 	Player p2(name2, fich2);
 	cin.ignore(1000, '\n');
 	
-	//Player p1("Jorge", "p2.txt");
-	//Player p2("Isidoro", "p1.txt");
 	
+	if (p1.getBoard() != p2.getBoard())
+	{
+			do
+			{
+			cout << "Different board sizes. Do you want to continue? (Y/N)";
+			cin >> cont;
+			cont = toupper(cont);
+			} while (cont != 'Y' && cont != 'N');
+	}
+	
+	if (cont == 'N')
+		return;
+
 	p1.getBoard().putShips();
 	p2.getBoard().putShips();
 	while (!p1.getBoard().areDestroyed() || !p2.getBoard().areDestroyed())
@@ -217,7 +239,6 @@ void game(vector<Score> &scores)
 		j++;
 
 	}
-
 }
 
 int main()
@@ -225,52 +246,63 @@ int main()
 	srand((unsigned)time(NULL));
 	int option;
 	bool validoption = true;
-	char cont;
-
-	vector<Score> scores(10);
-	readScores(scores);
-
-
-	gotoxy(35, 0);
-	cout << "BATTLESHIP \n\n";
-	gotoxy(20, 22);
-	cout << "Developed by Bruno Barros and Fabio Caramelo - FEUP - MIEIC";
-	gotoxy(0, 2);
-	cout << "1 - Play Game" << endl;
-	cout << "2 - View Highscores" << endl;
-	cout << "3 - Create a new table \n\n";
+	char cont = 'Y';
 	do
 	{
-		cout << "Please select an option: ";
-		cin >> option;
-		if (cin.fail() || cin.eof() || option > 3 || option < 1)
-		{
-			validoption = false;
-			cin.clear();
-			cin.ignore(1000, '\n');
-		}
-		else 
-		{
-			validoption = true;
-			cin.ignore(1000, '\n');
-		}
-	} while (!validoption);
-	if (option == 1)
-		game(scores);
-	else if (option == 2)
-		showScores(scores);
-	else if (option == 3)
-		createTable();
+		vector<Score> scores(10);
+		readScores(scores);
 
-	cout << "\n\nDo you want to continue? (Y/N)";
-	cin >> cont;
 
-	if (toupper(cont) == 'Y')
-	{
+		gotoxy(35, 0);
+		std::cout << "BATTLESHIP \n\n";
+		gotoxy(20, 22);
+		std::cout << "Developed by Bruno Barros and Fabio Caramelo - FEUP - MIEIC";
+		gotoxy(0, 2);
+		std::cout << "1 - Play Game" << endl;
+		std::cout << "2 - View Highscores" << endl;
+		std::cout << "3 - Create a new table" << endl;
+		std::cout << "4 - Exit \n\n";
+		do
+		{
+			std::cout << "Please select an option: ";
+			std::cin >> option;
+			std::cin.clear();
+			
+			if (std::cin.fail() || std::cin.eof() || option > 4 || option < 1)
+			{
+				validoption = false;
+				std::cin.ignore(1000, '\n');
+				std::cin.clear();
+			}
+			else
+			{
+				validoption = true;
+				//std::cin.ignore(1000, '\n');
+			}
+		} while (!validoption);
+		if (option == 1)
+		{
+			clrscr();
+			game(scores);
+		}
+		else if (option == 2)
+		{
+			clrscr();
+			showScores(scores);
+		}
+		else if (option == 3)
+		{
+			clrscr();
+			createTable();
+		}
+		else if (option == 4)
+			exit(1);
+
+		std::cout << "\n\nDo you want to continue? (Y/N)";
+		std::cin >> cont;
 		clrscr();
-		main();
-	}
-
+	} while (cont == 'Y' || cont == 'y');
+	
 
 	return 0;
 	

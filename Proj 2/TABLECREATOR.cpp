@@ -11,7 +11,7 @@
 #include <stdlib.h>
 #include "TABLECREATOR.h"
 
-;
+
 
 struct Navios
 {
@@ -294,7 +294,7 @@ void posicionaNavios(char modo, vector<Navios> &navios, vector<vector<char>> &ta
 		}
 		imprimeTabuleiro(larg, comp, tab, navios); // imprime o tabuleiro alterado
 	}
-
+	setcolor(7, 0);
 }
 
 
@@ -398,27 +398,30 @@ void createTable()
 	string filename;
 	srand((unsigned)time(NULL));
 
-	cout << "Manual mode (M/m) or automatic mode (A/a)? ";
-	cin >> modo;
-	cin.ignore(100, '\n');
 
-	if ((int)modo == (int)'M' || (int)modo == (int)'m' || (int)modo == (int)'A' || (int)modo == (int)'a') // Verificacao de validade do modo
+	do
 	{
-		cout << "Valid mode" << endl;
-		modoValido = true;
-	}
-	else
-	{
-		cout << "Invalid mode" << endl;
-		modoValido = false;
-	}
+		cout << "Manual mode (M/m) or automatic mode (A/a)? ";
+		cin >> modo;
+		cin.ignore(100, '\n');
 
-	cout << "Introduce the name of the file where you want to save your board: "; 
-	cin >> filename;
+		if ((int)modo == (int)'M' || (int)modo == (int)'m' || (int)modo == (int)'A' || (int)modo == (int)'a') // Verificacao de validade do modo
+		{
+			cout << "Valid mode" << endl;
+			modoValido = true;
+		}
+		else
+		{
+			cout << "Invalid mode" << endl;
+			modoValido = false;
+		}
+	} while (!modoValido);
 
 
 	if (modoValido) // apenas vai continuar se o modo for valido
 	{
+		cout << "Introduce the name of the file where you want to save your board: ";
+		cin >> filename;
 		leNavios(escolheFicheiro(), modo, filename);  // Guarda a informacao sobre os navios 
 	}
 

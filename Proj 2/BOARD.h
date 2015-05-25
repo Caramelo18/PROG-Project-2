@@ -22,7 +22,7 @@ public:
 	bool checkPosition(int line, int column, unsigned int size, char orientation, char direction) const;
 	void deleteShip(const Ship &s);
 	friend ostream& operator<<(ostream& output, const Board &board);
-	friend bool operator==(const Board &board1, const Board &board2);
+	friend bool operator!=(const Board &board1, const Board &board2);
 	vector<Ship> getShips() const;
 	bool areDestroyed() const;
 	int getLines() const;
