@@ -3,28 +3,28 @@
 #include "BOARD.h"
 #include <iostream>
 
-Player::Player(string playerName, string boardFilename)
+Player::Player(string playerName, string boardFilename) //define os privates da classe Player
 {
 	name = playerName;
 	board = Board::Board(boardFilename);
 }
 
-void Player::showBoard() const // shows the player’s board
+void Player::showBoard() const // mostra o tabuleiro do jogador em questão
 {
 	board.display();
 }
 
-Bomb Player::getBomb() const // asks bomb target coordinates and creates the bomb
+Bomb Player::getBomb() const // Pergunta as coordenadas da trajetoria da bomba e cria a mesma
 {
 	string coordenates;
 	Position<char> char_coordenates;
 	bool valid = true;
 
-	do
+	do // enaquanto as coordenadas não forem válidas o programa volta a pedir as mesmas até que lhe sejam fornecidas coordenadas válidas
 	{
 		std::cout << "Introduce your bomb coordenates (lin, col): ";
 		std::cin >> coordenates;
-		if (coordenates.size() != 2 || cin.eof())
+		if (coordenates.size() != 2 || cin.eof()) //Apenas aceita dois char e não vai abaixo com o "^Z"
 		{
 			std::cout << "Invalid input! \n";
 			cin.clear();
@@ -37,7 +37,7 @@ Bomb Player::getBomb() const // asks bomb target coordinates and creates the bom
 		}
 		else
 		{
-			valid = true;
+			valid = true; //define num Position<char> as coordenadas da bomba 
 			char_coordenates.lin = coordenates[0];
 			char_coordenates.col = coordenates[1];
 		}
@@ -48,17 +48,15 @@ Bomb Player::getBomb() const // asks bomb target coordinates and creates the bom
 	return Bomb::Bomb(char_coordenates);
 }
 
-void Player::attackBoard(const Bomb &b) // "receives" a bomb from the opponent;
+void Player::attackBoard(const Bomb &b) // "recebe" a bomba vinda do oponente;
 {
-	board.moveShips();
+	board.moveShips(); //move os barcos e de seguida a bomba é lançada 
 	board.attack(b);
 	
 }
 
-// updates own board taking into account the damages
-// caused by the bomb; BEFORE THAT… moves the ships
 
-Board& Player::getBoard() 
+Board& Player::getBoard() //devolve o tabuleiro do jogador em questão
 {
 	return board;
 }

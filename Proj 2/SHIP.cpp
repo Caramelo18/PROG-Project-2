@@ -5,9 +5,9 @@
 #include <iostream>
 
 
-Ship::Ship(char symbol, Position<char> position, char orientation, unsigned int size, unsigned int color)
+Ship::Ship(char symbol, Position<char> position, char orientation, unsigned int size, unsigned int color) //define os privates da classe Board
 {
-	this->symbol = symbol;
+	this->symbol = symbol; 
 	this->position.col = (int)(position.col - 'a');
 	this->position.lin = (int)(position.lin - 'A');
 	this->orientation = orientation;
@@ -16,11 +16,11 @@ Ship::Ship(char symbol, Position<char> position, char orientation, unsigned int 
 	this->status = string(size, symbol);
 }
 
-bool Ship::move(char direction, bool rotate, unsigned int lineMin, unsigned int columnMin, unsigned int lineMax, unsigned int columnMax) // moves the boat (SEE NOTES)
+bool Ship::move(char direction, bool rotate, unsigned int lineMin, unsigned int columnMin, unsigned int lineMax, unsigned int columnMax) //mediante os parâmetros recebidos move o navio
 {
-	bool valid = true;
+	bool valid = true; 
 
-	if (rotate) 
+	if (rotate) // verifica se o barco roda
 	{
 		if (orientation == 'H')
 			orientation = 'V';
@@ -70,7 +70,7 @@ bool Ship::move(char direction, bool rotate, unsigned int lineMin, unsigned int 
 		}
 	}
 
-	else
+	else // faz o mesmo que em cima mas para a orientacao vertical
 	{
 		if (direction == 'N')
 		{
@@ -113,7 +113,7 @@ bool Ship::move(char direction, bool rotate, unsigned int lineMin, unsigned int 
 
 bool Ship::moveRand(unsigned int lineMin, unsigned int columnMin, unsigned int lineMax, unsigned int columnMax) // moves the ship randomly
 {
-	int i = rand() % 2;  // tem 50% de rodar
+	int i = rand() % 2;  // tem 50% de probabilidade de rodar
 	bool rotate;
 
 	if (i == 0)
@@ -122,7 +122,7 @@ bool Ship::moveRand(unsigned int lineMin, unsigned int columnMin, unsigned int l
 	else if (i == 1)
 		rotate = false;
 	
-	int j = rand() % 5;
+	int j = rand() % 5; // 80% de probabilidade de se mover
 	char direction;
 
 	if (j < 4)
@@ -139,7 +139,7 @@ bool Ship::moveRand(unsigned int lineMin, unsigned int columnMin, unsigned int l
 		else if (j == 3)
 			direction = 'E';
 
-		Ship::move(direction, rotate, lineMin, columnMin, lineMax, columnMax);
+		Ship::move(direction, rotate, lineMin, columnMin, lineMax, columnMax); // faz mover os barcos mediante as variaveis aleatorias denominadas em cima
 		return true;
 	}
 
@@ -158,12 +158,12 @@ bool Ship::attack(size_t partNumber) //partNumber = {0,1,…, size-1}
 	return false;
 }
 
-bool Ship::isDestroyed() const // checks whether the ship is destroyed
+bool Ship::isDestroyed() const // verifica se o navio esta destruido
 {
 	int counter = 0;
 	for (unsigned int i = 0; i < size; i++)
 	{
-		if (islower(status[i]))
+		if (islower(status[i])) // verifica se aquela posicao da string status esta em minuscula
 			counter++;
 	}
 
@@ -175,37 +175,37 @@ bool Ship::isDestroyed() const // checks whether the ship is destroyed
 	return false;
 }
 
-void Ship::show() const // shows the attributes of the ship (for debugging)
+void Ship::show() const // mostra os atributos de cada barco (para debugging)
 {
 	std::cout << "Ship attributes:" << endl << "Symbol: " << symbol << endl << "Line position: " << position.lin << endl << "Column position: " << position.col << endl << "Orientation: " << orientation << endl << "Size: " << size << endl << "Color: " << color << endl << "Status: " << status << endl;
 }
 
-char Ship::getSymbol() const
+char Ship::getSymbol() const // para se aceder ao simbolo do navio
 {
 	return symbol;
 }
 
-int Ship::getSize() const
+int Ship::getSize() const // para se aceder ao tamanho do navio
 {
 	return size;
 }
 
-Position<unsigned int> Ship::getPosition() const
+Position<unsigned int> Ship::getPosition() const  // para se aceder a posicao do navio no tabuleiro
 {
 	return position;
 }
 
-char Ship::getOrientation() const
+char Ship::getOrientation() const  // para se aceder a orientacao do navio
 {
 	return orientation;
 }
 
-int Ship::getColor() const
+int Ship::getColor() const // para se aceder a cor do navio
 {
 	return color;
 }
 
-string Ship::getStatus() const
+string Ship::getStatus() const  // para se aceder a string da status do navio
 {
 	return status;
 }
